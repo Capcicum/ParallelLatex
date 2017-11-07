@@ -22,6 +22,11 @@
 \usepackage{amsmath}
 \usepackage{makecell}
 
+\usepackage{titlesec}
+\titleformat{\chapter}[hang] % remove "Chapter N" before chapter name
+{\Huge\bfseries}{\thechapter.\hspace{20pt}}{0pt}{\Huge\bfseries}
+\titlespacing*{\chapter}{0pt}{10pt}{5pt}
+
 
 
 \begin{document}	
@@ -55,5 +60,11 @@
 \setcounter{page}{1}
 
 \chapter{KK}
+
+% citation test
+\cite{PANDA}
+
+\bibliographystyle{plain}
+\bibliography{bib}
 
 \end{document}
