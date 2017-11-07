@@ -1,0 +1,13 @@
+In the map communication pattern each tasks reads and writes to specific data elements in memory.
+In its simplicity, the same function or computation is done on each piece of data as seen in bla. bla.
+
+---add fig here
+
+In the this way there is a one-to-one correspondence between the input and output.
+
+This corresponds to that one thread will be doing each task in CUDA.
+An example is seen listing bla. bla.
+
+---add code
+
+Here the kernel is launched in one block which spawns 64 threads and each thread does the same computation which is to square its thread id.
