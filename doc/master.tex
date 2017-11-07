@@ -1,37 +1,79 @@
 \documentclass[12px,oz]{report}
 
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"} % allow usage of "x" instead of ``x''
+
 \usepackage{placeins}
 \usepackage{xr-hyper} % must be before hyperref
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
-\usepackage{subcaption}
-%\usepackage{oz} % cannot be used together with siunitx
+\usepackage{pdflscape}
+%\usepackage{oz} % conflicts with siunitx
 \usepackage{float}
-\usepackage{titlesec}
-\usepackage{csquotes}
-\usepackage[margin=1in]{geometry} % margin!
-\usepackage{listings}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{fullpage}
-\usepackage{longtable}
-\usepackage{csvsimple} % to easily use csv files for tables
-% http://mirrors.dotsrc.org/ctan/macros/latex/contrib/csvsimple/csvsimple.pdf
-\usepackage[T1]{fontenc} % handles "_" correctly when using csvsimple
-\usepackage{booktabs}
-\usepackage{siunitx}
-\usepackage{amsmath}
-\usepackage{makecell}
-
 \usepackage{titlesec}
 \titleformat{\chapter}[hang] % remove "Chapter N" before chapter name
 {\Huge\bfseries}{\thechapter.\hspace{20pt}}{0pt}{\Huge\bfseries}
 \titlespacing*{\chapter}{0pt}{10pt}{5pt}
 
 
+\usepackage[margin=1in]{geometry} % margin!
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+
+% for SI units
+\usepackage[binary-units=true, detect-all]{siunitx}	
+
+\usepackage{amsmath} % \text{}
+
+\usepackage{longtable}
+
+\usepackage[skip=4pt]{caption} % make captions closer to picture
+
+\usepackage{setspace}
+%\singlespacing
+\onehalfspacing
+
+\setcounter{secnumdepth}{3} % set subsubsections to be numbered as well
+
+% when using the english language, autoref to subsection and section simply writes "section" instead of using the prefix
+\addto\extrasenglish{
+	\let\subsectionautorefname\sectionautorefname
+	\let\subsubsectionautorefname\sectionautorefname
+}
+
+% Header and footer
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\cfoot{\thepage\ of \pageref{LastPage}}
+
+% Subfigure
+\usepackage{caption}
+\usepackage{subcaption}
+
+% remove new page after chapter
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+% custom functions
+\newenvironment{enumerateSmall}%
+{\vspace{-5mm}
+	\begin{enumerate}%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parskip}{0pt}}%
+	{\end{enumerate}}
+
+\newenvironment{itemizeSmall}%
+{\vspace{-5mm}
+	\begin{itemize}%
+		\setlength{\itemsep}{0pt}%
+		\setlength{\parskip}{0pt}}%
+	{\end{itemize}}
 
 \begin{document}	
-
-\thispagestyle{empty}
+\pagenumbering{roman} % "gobble" can be used if no pagenumbering is needed	
 % TITLE PAGE
 	\begin{titlepage}
 		\centering
@@ -55,14 +97,17 @@
 		\end{flushleft}
 		\vspace*{6\baselineskip}
 	\end{titlepage}
-	\thispagestyle{empty}
+
+\tableofcontents
 \clearpage
-\setcounter{page}{1}
+\pagenumbering{arabic}
+\cleardoublepage
 
 \chapter{KK}
 
 % citation test
-\cite{PANDA}
+\cite{McCool2012}
+\cite{udacity:parallel}
 
 \bibliographystyle{plain}
 \bibliography{bib}
