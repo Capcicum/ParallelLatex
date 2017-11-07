@@ -1,0 +1,59 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+*.aux
+master.pdf
+*.toc
+*.log
+*.out
+*.synctex.gz
+*.swp
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.nav
+
+# Visual Studio
+
+Debug/
+*.db
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Extra
+*.suo
+*.sdf
+*.VC.opendb
+
+# Python
+*.pyc

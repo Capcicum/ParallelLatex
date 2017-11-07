@@ -1,0 +1,59 @@
+\documentclass[12px,oz]{report}
+
+\usepackage{placeins}
+\usepackage{xr-hyper} % must be before hyperref
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+%\usepackage{oz} % cannot be used together with siunitx
+\usepackage{float}
+\usepackage{titlesec}
+\usepackage{csquotes}
+\usepackage[margin=1in]{geometry} % margin!
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fullpage}
+\usepackage{longtable}
+\usepackage{csvsimple} % to easily use csv files for tables
+% http://mirrors.dotsrc.org/ctan/macros/latex/contrib/csvsimple/csvsimple.pdf
+\usepackage[T1]{fontenc} % handles "_" correctly when using csvsimple
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{makecell}
+
+
+
+\begin{document}	
+
+\thispagestyle{empty}
+% TITLE PAGE
+	\begin{titlepage}
+		\centering
+		\vspace*{3\baselineskip}
+		{\Huge \bfseries Parallel Programming}
+		\rule{\linewidth}{0.5mm}
+		%\vspace*{1\baselineskip}\\
+		\LARGE
+		Reading Course
+		\\
+		\null\vfill
+		\begin{flushleft} \large
+			au503241 \hspace*{2em} \  Frederik Andersen\\
+			au500070 \hspace*{2em} \  Mathias Jessen\\
+			au501580 \hspace*{2em} \  Michael Ilkiv Misbih\\
+			au501465 \hspace*{2em} \  Morten Morberg Madsen\\
+			au505313 \hspace*{2em} \  Thomas Holm Nielsen\\
+			\vspace{100pt}
+			Supervisor:\hspace{94pt}  Date: \\
+			Kim Bjerge \hspace{90pt}  \today\\
+		\end{flushleft}
+		\vspace*{6\baselineskip}
+	\end{titlepage}
+	\thispagestyle{empty}
+\clearpage
+\setcounter{page}{1}
+
+\chapter{KK}
+
+\end{document}
