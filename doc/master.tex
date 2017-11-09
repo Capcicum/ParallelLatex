@@ -72,6 +72,9 @@
 		\setlength{\parskip}{0pt}}%
 	{\end{itemize}}
 
+% DEFINES!
+\def \cuda {CUDA}
+
 \begin{document}	
 \pagenumbering{roman} % "gobble" can be used if no pagenumbering is needed	
 % TITLE PAGE
@@ -104,9 +107,37 @@
 \cleardoublepage
 
 \chapter{Programming Model}
-\label{ch:programming-model}
+\label{ch-programming-model}
 \input{content/programming-model-intro.tex}
+% mapping: Programming to Hardware
 
+	\section{Kernels}
+	\label{sec-pm-kernels}
+	\input{content/pm-kernels.tex}
+	
+	\section{Memory}
+	\label{sec-pm-memory}
+	\input{content/pm-memory.tex}
+	
+	\section{Threads and Grids}
+	\label{sec-pm-threads}
+	\input{content/pm-threads.tex}
+	
+	\section{Synchronization}
+	\label{sec-pm-synch}
+	\input{content/pm-synch.tex}
+	
+	\section{Streams}
+	\label{sec-pm-streams}
+	\input{content/pm-streams.tex}	
+	
+	\section{Dynamic Parallelism}
+	\label{sec-pm-dynamic}
+	\input{content/pm-dynamic.tex}
+	
+	\section{Intrinsics}
+	\label{sec-pm-intrinsics}
+	\input{content/pm-intrinsics.tex}
 
 
 \chapter{Parallel Communication Patterns}
@@ -132,6 +163,24 @@
 	\section{Transpose}
 	\label{sec-transpose}
 	\input{content/transpose.tex}
+	
+\chapter{Applications}
+\label{ch-app}
+
+	\section{Exercises}
+	
+		\subsection{Exercise 1}
+		
+		\subsection{Exercise 2}
+		
+		\subsection{Exercise 3}
+		
+		\subsection{Exercise 4}
+		\input{content/exercise4.tex}
+		
+		\subsection{Exercise 5}
+		
+		\subsection{Exercise 6}
 	
 
 % citation test
