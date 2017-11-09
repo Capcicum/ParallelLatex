@@ -20,10 +20,10 @@ An example of applying a kernel to an image is seen in \autoref{fig:kernel}.
 	\fbox{
 		\includegraphics[width=0.6\textwidth]{figs/parallelblur2.png}
 	}
-	\caption{Example of a kernel operation}
+	\caption{Example of a kernel operation with $\mathtt{4x4}$ dimensions}
 	\label{fig:kernel}
 \end{figure}
 Using such a parallel communication pattern can vastly improve the computation time of applying for instance a kernel to an image.
-Say that with a kernel with $\mathtt{NxN}$ dimensions and an image with $\mathtt{K}$ pixels the running time would be $\mathtt{O(N\cdot K)}$ on serial processor compared to $\mathtt{O(N)}$ in parallel, assuming that $K$ threads can be spawned on the GPU.
+Say that with a kernel with $\mathtt{NxN}$ dimensions and an image with $\mathtt{K}$ pixels the running time would be $\mathtt{O(N\cdot K)}$ on a serial processor compared to $\mathtt{O(N)}$ in parallel, assuming that $K$ threads can be spawned on the GPU.
 
 %TODO: make small code example of gather
