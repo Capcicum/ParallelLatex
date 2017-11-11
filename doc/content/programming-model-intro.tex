@@ -1,0 +1,15 @@
+The \cuda{} programming model, is a heterogeneous model where both the CPU and the GPU are used.
+In this context \textit{host} refers to the CPU and \textit{device} refers to the GPU and their respective memory.
+The code run on the host also manages memory on the device and launches \textit{kernels} to be executed on the device.
+The host and device are physically separated, which means that the host execution can run in parallel with the kernel execution on the device.
+Kernels can briefly be described as functionality being executed by multiple threads in parallel on the device.
+
+\noindent A typical sequence of operations performed in the \cuda{} programming model is as follows:
+\begin{enumerateSmall}
+	\item Allocate and initialize host and device memory
+	\item Transfer data from host to device
+	\item Execute kernel(s) on the device
+	\item Transfer result(s) from device to host
+\end{enumerateSmall}
+The operations involved is described in details in the following sections.
+The \cuda{} examples are written in "\cuda{} C", which is an extension to ANSI C, but the principles are generic and can be applied in all \cuda{} programming languages.
