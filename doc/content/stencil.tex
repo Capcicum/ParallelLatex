@@ -100,7 +100,7 @@ Examples of Moore stencils is seen in \autoref{fig:Moore}.
 As can be from \autoref{fig:27p3DMoore} the input element is surrounded by other other elements in the memory grid, and for this reason it is a bit difficult to illustrate that the input element resides inside the cube.
 Notice that using 2D Moore stencils is a way of how kernels for image processing are implemented as described in \autoref{sec-gather}.
 \\\\
-An example of applying a 2D von Neumann stencil to an array of inputs is illustrated in bla. bla.
+An example of applying a 2D von Neumann stencil to an array of inputs is illustrated in \autoref{fig:2dMooreEx}.
 In this case a thread is responsible for applying a single stencil to an input element.
 \begin{figure}[ht]
 	\centering
@@ -113,4 +113,4 @@ In this case a thread is responsible for applying a single stencil to an input e
 Implementing these stencils are done the same way as with the gather pattern, since stencils are special cases of this pattern.
 In the case of applying stencils in parallel exploits a lot of data reuse since multiple threads are overlapping each other.
 There are ways of applying such stencils in an optimized way. (maybe more concrete?? have some example?? refer to some code/implementation?)
-Implementing the stencil pattern maps very well to CUDA, since it is possible to represent both 2D and 3D structures in CUDA,
+Implementing the stencil pattern maps very well to CUDA, since it is possible to represent both 2D and 3D structures in CUDA (reference here to the programming model?). 
