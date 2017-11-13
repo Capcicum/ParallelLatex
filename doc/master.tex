@@ -134,6 +134,7 @@
 \pagenumbering{arabic}
 \cleardoublepage
 
+<<<<<<< HEAD
 \chapter{GPU Hardware Architecture}
 \label{ch-hw-gpu-hardware-architecture}
 \input{content/hw-gpu-hardware-architecture.tex}
@@ -176,6 +177,27 @@
 	\label{sec-hw-cuda-gpu-roadmap}
 	\input{content/hw-cuda-gpu-roadmap}
 
+=======
+\chapter{Introduction}
+\label{ch-intro}
+\input{content/intro.tex}
+
+	\section{Parallel vs. Serial Processing}
+	\label{sec-par-vs-ser}
+	\input{content/pvs.tex}
+
+	\section{Step \& Work Complexity}
+	\label{sec-step-comp}
+	\input{content/step_n_work.tex}
+
+	\section{Latency vs Bandwidth}
+	\label{sec-lat-vs-band}
+	\input{content/lvb.tex}
+
+	\section{Approach to Parallelizing Code}
+	\label{sec-app-to-par}
+	\input{content/approach_to_parallelizing.tex}
+>>>>>>> 333b1bfd782547dc7cf9a0e4bccd6767baddf0ec
 
 \chapter{Programming Model}
 \label{ch-programming-model}
@@ -274,6 +296,22 @@
 	\section{Allocate}
 	\label{sec-allocate}
 	\input{content/allocate.tex}
+	
+\chapter{Optimization of Cude Code}
+\label{ch-opti-intro}
+\input{content/opti_intro.tex}
+
+\section{General Optimization}
+\label{sec-general-opti}
+\input{content/general_opti.tex}
+
+\section{Optimization of Memory Access}
+\label{sec-opti-memory}
+\input{content/opti_memory.tex}
+
+\section{Thread Divergence}
+\label{sec-thread-div}
+\input{content/thread_div.tex}
 
 \chapter{Applications}
 \label{ch-app}
