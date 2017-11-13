@@ -34,11 +34,10 @@ int main(int argc, char ** argv) {
 	dim3 threads(x,y,z);
 	example<<<blocks, threads>>>(d_out, d_in); }
 \end{lstlisting}
-
-
-NOTE -> WRITE THAT IT CAN BE USED FOR MAPPING IN 2D PICTURES ETC!
-2D -> 3D
-MULTIDIMENSIONAL STUFF! VECTORS ETC!
-
+The number of blocks and threads to launch a kernel heavily depends on the specific application.
+This is also valid in terms of the grid and block dimensions.
+An example is that the dimensions can be chosen so that there is a natural mapping from a pixel in a picture, to each thread.
+If the picture is black and white it would make sense to construct a 2D grid and if the picture contained RGB values, it would be preferable to construct a 3D grid.
+So if the application contains multiple dimensions, it is possible to launch threads in multiple dimensions to ease the programming task.
 
 
