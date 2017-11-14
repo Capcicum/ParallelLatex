@@ -1,0 +1,17 @@
+The motivation behind the first GPUs, emerging at the end of the 1990s, was a high demand of GPU accelerated 3D graphics.
+The early versions of GPU hardware architectures was narrowly specialized to perform a fixed series of standard operations onto the data it was provided.
+This resulted in large performance improvements in comparison to the general purpose CPU.
+However the drawback was that 3D rendering were performed using fixed-function pipelines (FFPs).
+Thus, configuration of which function to perform was not a possibility, only the parameters could be changed.
+The functions performed by FFPs handling operations which are \textit{applying lightning}, \textit{coloring} and \textit{adding textures to shapes} are defined as shaders.
+For early FFPs, two shaders existed, a shader responsible for vertexes(triangles) and a shader for pixels.
+
+% Consider: (Rewrite)
+%The first stage in the fixed-function graphics pipeline converted triangle data originating %from the CPU to a form that the graphics hardware could understand. The next pipeline stages %colorized and applied textures to the triangles, rasterized the 3D-scene to a 2D-image and %colorized the pixels in the triangles. In the final stage in the pipeline, the output image %was stored in a frame buffer where it resided until it was displayed on the screen
+
+The first step towards the GPGPU was made to increase the configuration possibilities.
+This was carried out by changing the GPU architecture to provide a dedicated pool of processing cores for each of the two shaders.
+Allowing for customization of the pipeline so that custom algorithms can be performed on each element.
+
+However, often only one of the two shaders were performed at a time, resulting in that half %TODO Cuda/DirectX10 -> Only one type of core -> GPGPU
+
