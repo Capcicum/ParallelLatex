@@ -27,7 +27,7 @@ In the kernel, the shared memory is declared by using the keyword and "\_\_share
 Each thread often copies global memory to shared memory and then accesses the shared memory as much as needed before copying back to global memory.
 Before starting to use the shared memory it must be ensured that all threads have copied their value from global to shared memory.
 This is ensured with the synchronizer "\_\_syncthreads" (explained in details in \autoref{sec-pm-synch}).
-\begin{lstlisting}[language=C,caption={Kernel example},label=lst:shared-mem-acc]
+\begin{lstlisting}[language=C,caption={Example of using shared memory},label=lst:shared-mem-acc]
 __global__ void shared_mem(float * d_out, float * d_in){
 	extern __shared__ unsigned int sdata[];
 	int myId = threadIdx.x + blockDim.x * blockIdx.x;
