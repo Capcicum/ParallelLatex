@@ -5,31 +5,86 @@ One of the most used patterns in parallel computing is the reduction. The reduct
 	(a \oplus b) \oplus c = a \oplus (b \oplus c)
 \end{equation}
 
-
+Addition and multiplication operators are associative while subtraction and division is not. A visual representation of a serial reduction is seen on \cref{fig:reduce_serial}. 
 
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.6\textwidth]{figs/algorithm/reduce_serial.jpg}}
+		\includegraphics[width=0.4\textwidth]{figs/algorithm/reduce_serial.jpg}}
 	\caption{TBD}
 	\label{fig:reduce_serial}
 \end{figure}
 
+Each operator operation in the serial implementation is data depend, which creates a chain of dependencies. The serial reduction is common for single core system and is commonly implemented using a loop. The step and work complexity for the serial reduction is O(n). Mathematical a serial reduction computing the sum of 4 elements can be expressed as \cref{eq:al_reduce_serial}
 
+\begin{equation}
+\label{eq:al_reduce_serial}
+\Sigma(A,...,D) = (((A + B) + C) + D) 
+\end{equation} 
+
+Because of the data dependency in the serial reduction its operations cannot execute in parallel. A parallel reduction based on a binary tree is seen on \cref{fig:reduce_parallel}, here several of the operations can executed in parallel, thereby reducing the step complexity of the algorithm. 
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+			\fbox{
+			\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_parallel.jpg}}
+		\caption{TBD}
+		\label{fig:reduce_parallel}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\fbox{
+			\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_parallel_example.jpg}}
+		\caption{TBD}
+		\label{fig:reduce_parallel_example}
+	\end{subfigure}
+	\caption{TBD}
+	\label{fig:reduce_parallel_fig}
+\end{figure}
+
+The binary tree parallel reduction has a work complexity of O(n) and a step complexity of O(log n), an is thereby step efficient. Mathematical the parallel reduction computing the sum if 4 elements can be expressed as \cref{eq:al_reduce_parallel}: 
+
+\begin{equation}
+\label{eq:al_reduce_parallel}
+\Sigma(A,...,D) = ((A+B)+(C+D))
+\end{equation}
+
+The amount of data dependency is reduced compared to \cref{eq:al_reduce_serial}, making it more suitable for parallel execution. An example of array summation using \cref{fig:reduce_parallel} is seen on \cref{fig:reduce_parallel_example}. A simple CUDA implementation of a reduction algorithm is seen in lst. \ref{lst:reduce_kernel}:
+
+\begin{lstlisting}[language=C,caption={TBD},label=lst:reduce_kernel]
+__global__ void reduce_kernel(float * d_out, float * d_in, int size)
+{
+	int myId  = threadIdx.x; 
+
+	// Reduction through O(log size) iterations
+	for (unsigned int s = size / 2; s > 0; s >>= 1)
+	{
+		if (myId < s) // prevents segmentation fault
+		{
+			d_in[myId] += d_in[myId + s];
+		}
+		__syncthreads(); // synchonize each thread        
+	}
+
+	if (myId == 0) // thread 0 writes the result to the output
+	{
+		d_out[myId] = d_in[myId];
+	}
+}
+\end{lstlisting}
+
+The reduction implementation uses the individual thread ids to index in the input array. A for-loop is used to iterate through  $log(n)$ steps, where n is the number of elements in the input array. It should be noted that this example is not optimized, but is merely to show how a CUDA implementation looks. The shown implementation uses global memory and will only work on arrays smaller than the maximum threads per block. A way of making the reduce work on an arbitrary array size, is by combining multiple reductions as presented on \cref{fig:al_reduce_combine}:
 
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.6\textwidth]{figs/algorithm/reduce_parallel.jpg}}
+		\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_combine.jpg}}
 	\caption{TBD}
-	\label{fig:reduce_parallel}
+	\label{fig:al_reduce_combine}
 \end{figure}
 
+The combination of reductions enables reduction of both arbitrary array sizes and different array dimensions. Shared memory used by each  can also further optimize the reduction implementation.
 
-\begin{figure}[ht]
-	\centering
-	\fbox{
-		\includegraphics[width=0.6\textwidth]{figs/algorithm/reduce_parallel_example.jpg}}
-	\caption{TBD}
-	\label{fig:reduce_parallel_example}
-\end{figure}
+The reduction algorithm is used in many application within parallel computing. An example of use is in Monte Carlo simulation, used in e.g. finance, computer graphics, image processing, where averages and variances of large arrays is needed.

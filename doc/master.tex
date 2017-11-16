@@ -18,6 +18,13 @@
 {\Huge\bfseries}{\thechapter.\hspace{20pt}}{0pt}{\Huge\bfseries}
 \titlespacing*{\chapter}{0pt}{10pt}{5pt}
 
+%Definition 
+\usepackage{amsthm}
+
+\newtheoremstyle{indented}{3pt}{3pt}{\addtolength{\leftskip}{2.5em}}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{indented}
+\newtheorem{definition}{Definition}[section]
+
 
 \usepackage[margin=1in]{geometry} % margin!
 \usepackage{listings}
