@@ -5,7 +5,7 @@ Using compact before doing computations is both more computation and memory effi
 More formally the compact algorithm takes an input and computes a new output based on a predicate.
 The input is a set \textit{S} with \textit{n} inputs, where 
 \begin{gather}
-	S=\{s_{0}, s_{1}, s_{2}, ... , s_{n}|n\in \mathbb{R}\}
+	S=\{s_{0}, s_{1}, s_{2}, ... , s_{n}\ |\ n\in \mathbb{R}\}
 \end{gather}
 The predicate is a function that inputs an \textit{S}, $f_{P}(S)$, and returns \textit{true} or \textit{false} for each $s_n$.
 The returned output, $O\in S$, contains all input elements where the predicate is \textit{true}. 
@@ -56,9 +56,9 @@ The compact algorithm is summarized into following steps:
 			\textbf{Step 2} & Do an exclusive sum scan on the zeros and ones array, $f_{P}(S_{rand})_{new}$, from step 1. The output is scatter addresses for the compacted array.\\
 			\textbf{Step 3} & Scatter the input array into the output array using the scatter addresses.
 	\end{tabular}
-	\label{alg-compact}
 	}
 	\captionof{table}{Steps to compact}
+	\label{alg-compact}
 \end{center}
 
 Implementation - compare sparse vs dense
