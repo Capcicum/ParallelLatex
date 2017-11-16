@@ -1,7 +1,65 @@
 The term compact in computing refers to an input set of potentially many inputs where only a subset of those inputs are used to make a computation.
 In other words compact filters an input space into a subset.
 Using compact before doing computations is both more computation and memory efficient, if only some inputs of the entire data space are of interest.
-\\\\
-Compact formally\\\\
-The parallel algorithm of compact\\\\
-Steps to compact\\\\
+
+More formally the compact algorithm takes an input and computes a new output based on a predicate.
+The input is a set \textit{S} with \textit{n} inputs, where 
+\begin{gather}
+	S=\{s_{0}, s_{1}, s_{2}, ... , s_{n}\ |\ n\in \mathbb{R}\}
+\end{gather}
+The predicate is a function that inputs an \textit{S}, $f_{P}(S)$, and returns \textit{true} or \textit{false} for each $s_n$.
+The returned output, $O\in S$, contains all input elements where the predicate is \textit{true}. 
+Since not all predicates are necessarily \textit{true} means that the output is $O\subseteq S$.
+Furthermore, \textit{O} can have a sparse or dense representation.
+For a sparse output each $f_{P}(S)\equiv \mathtt{true}$ is assigned to its same position in \textit{O}, while $f_{P}(S)\equiv \mathtt{false}$ are assigned as \textit{none} (an empty element or some sort of \textit{null} value).
+On the other hand, for a dense output $\mathtt{O}=\{s\ |\ s\in f_{P}(S)\equiv \mathtt{true}\}$.
+
+As an example say we have the following input and predicate function
+\begin{align}
+	       S &= \{0, 8, 26, 12, 24, 50\}, \\
+	f_{P}(S) &= \{s\ \mathtt{mod}\ 4 = 0\ |\ s\in S\}
+\end{align}
+The predicate function thus results in
+\begin{gather}
+	f_{P}(S)=\{\mathtt{true}, \mathtt{true}, \mathtt{false}, \mathtt{true}, \mathtt{true}, \mathtt{false}\}
+\end{gather}
+Then the output of such a compact operation results in
+\begin{align}
+	O_{sparse} &= \{0, 8, \mathtt{none}, 12, 24, \mathtt{none}\}\\
+	O_{dense} &= \{0, 8, 12, 24\}
+\end{align}
+
+In parallel it is more efficient to use the dense compact algorithm since this results in only spawning threads that actually have a computational task to do.
+Implementing the dense compact algorithm in parallel is done by using scatter adresses.
+Scattering addresses is done by using the scatter pattern where each input is scattered to another place in memory as described in \autoref{sec-scatter}.
+For example if the predicate function for some \textit{S} returns the following set
+\begin{gather}
+	f_{P}(S_{rand}) = \{\mathtt{true}, \mathtt{false}, \mathtt{false}, \mathtt{true}, \mathtt{true}, \mathtt{false}, \mathtt{true}, \mathtt{false}\}
+\end{gather}
+the desirable indexes in the scatter output is the set $\{0, -, -, 1, 2, -, 3, -\}$, where "-" are "don't care".
+To compute the scatter adresses can be done by doing an exclusive scan as described in \autoref{sec:al_scan}.
+First the result of $f_{P}(S)$ is translated into zeros and ones using a such that
+\begin{gather}
+	f_{P}(S_{rand})_{new} = \{1, 0, 0, 1, 1, 0, 1, 0\}
+\end{gather}
+Finally the scatter addresses are computed by doing an exclusive sum scan on $f_{P}(S_{rand})_{new}$ which gives
+\begin{gather}
+	\{0, 1, 1, 1, 2, 3, 3, 4\}
+\end{gather}
+In this way it known to which indexes each input element should be scattered to in the output element.
+Note that the actual inputs are only those where the predicate function is evaluated to true.
+The compact algorithm is summarized into following steps:
+\begin{center}
+	\fbox{
+	\begin{tabular}{p{40pt} p{220pt}}
+			\textbf{Step 1} & Use predicate on input elements, $f_{P}(S)$, and translate the results into zeros and ones \\
+			\textbf{Step 2} & Do an exclusive sum scan on the zeros and ones array, $f_{P}(S_{rand})_{new}$, from step 1. The output is scatter addresses for the compacted array.\\
+			\textbf{Step 3} & Scatter the input array into the output array using the scatter addresses.
+	\end{tabular}
+	}
+	\captionof{table}{Steps to compact}
+	\label{alg-compact}
+\end{center}
+
+Implementation - compare sparse vs dense
+%TODO: make implementation of both
