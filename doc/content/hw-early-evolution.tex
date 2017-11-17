@@ -1,17 +1,33 @@
-The motivation behind the first GPUs, emerging at the end of the 1990s, was a high demand of GPU accelerated 3D graphics.
-The early versions of GPU hardware architectures was narrowly specialized to perform a fixed series of standard operations onto the data it was provided.
-This resulted in large performance improvements in comparison to the general purpose CPU.
-However the drawback was that 3D rendering were performed using fixed-function pipelines (FFPs).
-Thus, configuration of which function to perform was not a possibility, only the parameters could be changed.
-The functions performed by FFPs handling operations which are \textit{applying lightning}, \textit{coloring} and \textit{adding textures to shapes} are defined as shaders.
-For early FFPs, two shaders existed, a shader responsible for vertexes(triangles) and a shader for pixels.
+The first GPUs  emerged back at the late 1990s, where a high demand of GPU accelerated 3D graphics served as the motivation for these new devices.
+This demand for 3D graphics originated from the gaming industry.
+The GPU hardware architectures of these early versions was narrowly specialized.
+Back then, the 3D rendering of the GPU, worked by having a fixed series of standard operations implemented in the hardware called fixed-function pipelines.
+These functions were used render 3D-scenes, and could for instance be to \textit{apply lightning}, or to \textit{add texture}.
+Using a set of specialized hardware implementations to perform these operations, allowed for a large performance boost in comparison to the same execution handed out by the general purpose CPU.
+However, using these fixed-function pipelines, meant that it was not possible to configure which function to perform, but only possible to adjust the parameters for these functions.
+This limited the possibility for graphic programmers greatly, and led to a major switch in the GPU hardware architecture.
 
-% Consider: (Rewrite)
-%The first stage in the fixed-function graphics pipeline converted triangle data originating %from the CPU to a form that the graphics hardware could understand. The next pipeline stages %colorized and applied textures to the triangles, rasterized the 3D-scene to a 2D-image and %colorized the pixels in the triangles. In the final stage in the pipeline, the output image %was stored in a frame buffer where it resided until it was displayed on the screen
+The first change to the architecture, was to remove the strictly fixed-function pipelines.
+This was carried out by exchanging the highly specialized hardware functions with pools of flexible processor cores.
+These pools are separated between processors responsible for pixel specific calculations (Pixel shading) and processors responsible for vertex specific calculations (Vertex shading).
+The difference between these two shaders is that Pixel shaders operates per-pixel basis, and Vertex shaders perform operations to objects in a 3D environment.
+Changing to flexible programmable processor cores, allowed developers to apply custom algorithms to the processing pipeline executed by the GPU.
 
-The first step towards the GPGPU was made to increase the configuration possibilities.
-This was carried out by changing the GPU architecture to provide a dedicated pool of processing cores for each of the two shaders.
-Allowing for customization of the pipeline so that custom algorithms can be performed on each element.
+However balancing the number of processors dedicated to either pixel or vertex calculations proved to be a difficult task.
+As the workload to be distributed between the two depends on the individual application, a generic division of processors is unrealistic.
+Usual applications contain majority of pixels to be drawn in comparison to the amount of vertices to be calculated.
+This distribution is however not alway true, as some applications demands for more verticies calculations than pixels.
+This results in applications, where roughly half of the processing pool is idle for most of the processing time.
+As this suboptimal uneven work distribution was unacceptable for a general purpose GPU, the architecture was further improved.
 
-However, often only one of the two shaders were performed at a time, resulting in that half %TODO Cuda/DirectX10 -> Only one type of core -> GPGPU
+This led to the birth of the first GPGPU architecture. 
+Here a narrowing from the two specialized processor types were unified to a generic general purpose processor type, capable of handling the tasks of both of its predecessors.
+This new processor is more complex, yet more flexible and allows for a efficient workload distribution as tasks is distributable throughout all processors.
+
+The introduction of the new GPU hardware architecture containing a unified processor type started many research groups, with the focus of using the inherent computing power of GPUs for high-performance general purpose computing.
+However, development of general purpose applications relied on programming frameworks used for graphical programming.
+This forced programmers to transform their general computational problems to graphical problematics.
+This demand led to GPGPU frameworks used today, such as NVIDIAs "CUDA" or AMDs "ATI Stream".
+The programming model of NVIDIAs CUDA will further be described in %Ref til Thomas' kapitel.
+
 
