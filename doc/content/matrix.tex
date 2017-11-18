@@ -1,1 +1,87 @@
+Matrix multiplication has numerous applications and are often used in matrix algebra and in geometry based computing.
+Many matrices in such applications have a lot of entries with the value zero.
+It is said that a matrix is \textit{dense} if all elements in the matrix are stored including zero valued inputs.
+Conversely, a matrix is \textit{sparse} if the zero valued elements in the matrix are omitted.
+
+A way to represent a sparse matrix is done by a \textit{compressed sparse row}.
+Say that a dense matrix of 9 elements is represented as follows
+\begin{gather}
+	\begin{bmatrix}
+		a & 0 & b \\[0.3em]
+		c & d & e \\[0.3em]
+		0 & 0 & f
+	\end{bmatrix}
+	\label{mat-dense}
+\end{gather}
+Such a matrix can be represented as a sparse matrix in \textit{compressed sparse row} format, abbreviated as \textbf{CSV} format.
+The CSR format requires three vectors that together represents the sparse matrix.
+The three vectors are in this notation named as $V_v$, $C_v$ and $R_v$.
+The first vector is called the \textit{value} vector.
+This vector simply represent all non-zero data.
+In the case of matrix \ref{mat-dense} the value vector, $V_v$, is
+\begin{gather}
+	V_v =
+	\begin{bmatrix}
+		a & b & c & d & e & f\\[0.3em]
+	\end{bmatrix}
+\end{gather}
+The second vector, $C_v$, records which column each of the element from $V_v$ came from.
+In the example from matrix \ref{mat-dense} $C_v$ becomes
+\begin{gather}
+	C_v =
+	\begin{bmatrix}
+		0 & 2 & 0 & 1 & 2 & 2\\[0.3em]
+	\end{bmatrix}
+	\label{mat-vvector}
+\end{gather}
+since element \textit{a} is in column one, element \textit{b} is in column two and so on.
+The final vector, $R_v$, indicates which element start each row.
+This vector is also called the \textit{row-pointer}.
+In the example from matrix \ref{mat-vvector} the row-pointer is
+\begin{gather}
+	R_v =
+	\begin{bmatrix}
+		0 & 2 & 5\\[0.3em]
+	\end{bmatrix}
+\end{gather}
+since element \textit{a} starts in the first row and the index in $V_v$ is "0" and so on.
+It is now possible to reconstruct this sparse matrix represented by the three vectors $V_v$, $C_v$ and $R_v$.
+
+Doing matrix multiplication on a dense matrix results in a lot of multiplications that have no effect since many of the elements are zero.
+This is not computationally efficient so the idea is to use a sparse matrix representation for doing the computation.
+This is achieved by doing \textit{sparse matrix/dense vector multiplication}, abbreviated as \textbf{SpMv}.
+Formally SpMv is in the form $\mathbf{y=Ax}$, where the input matrix $\mathbf{A}$ is sparse and the input vector $\mathbf{x}$ and the output vector $\mathbf{y}$ are dense.
+As an example take matrix \ref{mat-dense} multiplied with another matrix
+\begin{gather}
+	\begin{bmatrix}
+		a & 0 & b \\[0.3em]
+		c & d & e \\[0.3em]
+		0 & 0 & f
+	\end{bmatrix}
+	\begin{bmatrix}
+		x \\[0.3em]
+		y \\[0.3em]
+		z 
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+	ax + 0y + bz \\[0.3em]
+	cx + dy + ez \\[0.3em]
+	0x + 0y + fz
+	\end{bmatrix}
+	\label{mat-ex}
+\end{gather}
+There are 4 steps to compute this using the CSV format for a sparse matrix representation:
+\begin{center}
+	\fbox{
+		\begin{tabular}{p{40pt} p{220pt}}
+			\textbf{Step 1} & Use predicate on input elements, $f_{P}(S)$, and translate the results into zeros and ones \\
+			\textbf{Step 2} & Do an exclusive sum scan on the zeros and ones array, $f_{P}(S_{rand})_{new}$, from step 1. The output is scatter addresses for the compacted array.\\
+			\textbf{Step 3} & Scatter the input array into the output array using the scatter addresses.
+		\end{tabular}
+	}
+	\captionof{table}{Steps to compact}
+	\label{alg-spmv}
+\end{center}
+
 Lesson 4 and 6.1
