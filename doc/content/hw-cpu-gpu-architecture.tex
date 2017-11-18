@@ -1,7 +1,8 @@
 % CPU/GPU correlation
 GPUs are usually used in a heterogeneous model containing two different processors, namely the CPU and the GPU as presented on \cref{fig:hw-cpu-gpu}.
 The configuration of this CPU/GPU architecture comes in different varieties, however, the variant with one CPU communicating with one GPU is the most common.
-Here, the CPU is responsible of executing code on the GPU as well manage the GPUs memory.
+In addition there exists configurations such as integrated GPUs for laptops where the CPU and GPU uses one shared memory block.
+As well configurations containing a multiple amount of GPUs for more demanding computational work.
 
 \begin{figure}[ht]
 	\centering
@@ -11,21 +12,17 @@ Here, the CPU is responsible of executing code on the GPU as well manage the GPU
 	\label{fig:hw-cpu-gpu}
 \end{figure}
 
-%TODO Add more? Sandybridge!?
+The communication between the CPU and GPU serves multiple purposes, which is key part in realizing both the graphical and computational work of the GPU.
+Further information regarding this programming model is presented in \cref{ch-programming-model}, instead this section concentrates on how this communication is handled out.
 
-%Shane Cook: SandyBridge
-%From the I7/X58 chipset design, Intel moved onto the Sandybridge design, shown in Figure 3.3.
-%One of the most noticeable improvements was the support for the SATA-3 standard, which supports
-%600 MB/s transfer rates. This, combined with SSDs, allows for considerable input/output (I/O)
-%performance with loading and saving data.
-%The other major advance with the Sandybridge design was the introduction of the AVX (Advanced
-%Vector Extensions) instruction set, also supported by AMD processors. AVX allows for vector
-%instructions that provide up to four double-precision (256 bit/32 byte) wide vector operations. It’s
-%a very interesting development and something that can be used to considerably speed up computebound
-%applications on the CPU.
+Older generation CPUs depended on the chipset located on the motherboard to communicate with GPUs as well as other outside components such as memory, I/Os and so on.
+However, this made the processors performance highly dependent on the chipset, as communication between RAM and GPUs went through the \textit{northbridge} part of the chipset.
+To avoid this dependency the implementation of the northbridge and the remaining chipset functionalities were moved to the CPUs itself, improving the performance.
+
+Thereby the communication between the CPU and GPU is highly dependent on the CPU itself, and the bus used between these two processors, namely the PCI Express bus.
 
 
-
+%TODO Add more? SLI https://en.wikipedia.org/wiki/Scalable_Link_Interface
 
 
 

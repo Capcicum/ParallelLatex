@@ -3,7 +3,7 @@ The communication between the CPU and GPU is handled through the high-speed seri
 Devices connected by PCI Express communicate using a logical connection defined as a \textit{link}.
 The link is a point-to-point channel, allowing both devices to send and receive PCI requests, such as configurations and memory read/writes.
 
-A link is composed of 1, 2, 4, 8 or 16 \textit{lanes}, which is composed of two differential signaling pairs, one pair for receiving data and the other for transmitting as presented on \cref{fig:hw-pci-express}.
+A link is composed of 1, 2, 4, 8 or 16 \textit{lanes}, which is furthermore composed of two differential signaling pairs, one pair for receiving data and the other for transmitting as presented on \cref{fig:hw-pci-express}.
 Prior to PCI Express, the old PCI bus only allowed a single component to use the full bandwidth of the bus, as adding more devices would reduce the available bandwidth.
 Lanes provide a guaranteed division of the bandwidth between all devices so that the amount of lanes used define the provided bandwidth.
 
@@ -25,6 +25,5 @@ As mentioned lanes used in the bus are full-duplex, meaning that the upload spee
 However, as the bandwidth is not cumulative, either of the speeds will not be doubled if the other is not transferring data.
 
 PCI Express is a layered protocol, implementing layer 1, 2 and 4 of the OSI model, namely a \textit{physical layer},  a \textit{data link layer} and a \textit{transaction layer}.
-
-% TODO: Consider extent:
+% TODO: Consider extent: with OSI model
 %https://web.archive.org/web/20140715120034/http://www.pcisig.com/developers/main/training_materials/get_document?doc_id=4e00a39acaa5c5a8ee44ebb07baba982e5972c67
