@@ -13,6 +13,8 @@ These pools are separated between processors responsible for pixel specific calc
 The difference between these two shaders is that Pixel shaders operates per-pixel basis, and Vertex shaders perform operations to objects in a 3D environment.
 Changing to flexible programmable processor cores, allowed developers to apply custom algorithms to the processing pipeline executed by the GPU.
 
+% TODO Consider Fixed-function pipeline img
+
 However balancing the number of processors dedicated to either pixel or vertex calculations proved to be a difficult task.
 As the workload to be distributed between the two depends on the individual application, a generic division of processors is unrealistic.
 Usual applications contain majority of pixels to be drawn in comparison to the amount of vertices to be calculated.
@@ -28,6 +30,6 @@ The introduction of the new GPU hardware architecture containing a unified proce
 However, development of general purpose applications relied on programming frameworks used for graphical programming.
 This forced programmers to transform their general computational problems to graphical problematics.
 This demand led to GPGPU frameworks used today, such as NVIDIAs "CUDA" or AMDs "ATI Stream".
-The programming model of NVIDIAs CUDA will further be described in %Ref til Thomas' kapitel.
+The NVIDIAs CUDA programming model is further described in \cref{ch-programming-model}.
 
 
