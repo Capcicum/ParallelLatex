@@ -1,11 +1,53 @@
 As described in \cref{sec-hw-early-evolution}, the GPU hardware architecture has undergone a drastic development, and still is.
-This section presents the GPU hardware architecture through a simplified GPGPU architecture, presented from a GPU computing point of view.
+This section presents the GPU hardware architecture as a conceptual GPGPU architecture.
+The architecture is presented from a GPU computing point of view, meaning that some elements which are only used for graphical purposes are not included.
 
+%TODO Evt. tilføj Flynn's taxonomy (Hvis ikke Mathias introducere.)
+
+The GPU hardware architecture consists of three main blocks categories:
+\begin{itemize}
+	\item Streaming Multiprocessors (SMs)
+	\item Streaming Processors (SPs) 
+	\item Memory (Cache, Local, Shared \& Global)
+\end{itemize}
+
+On a high level, the GPU can be described as an array of \textit{N} SMs, each consisting of \textit{M} cores (SPs). 
+The number of SMs contained in GPUs varies a lot, from small GPUs only containing a single SM, to the newest Nvidia architecture \textit{Tesla V100} containing 84 SMs.
+The number of SMs, and thereby the number of SPs, contained in the GPU enables more tasks to be processed at the same time or a single task to be processed faster if enough parallelism is implemented for this given task. 
+%TODO Tilføj evt. mere "general information" om GPU.
+
+
+A conceptual representation of a GPGPU hardware architecture is presented on \cref{fig:hw-gpu}.
+In addition to the three main block categories presented above, two other blocks is presented, namely the \textit{Host Interface} and the \textit{Global Scheduler}.
+
+%Host Interface
+The Host Interface is the logical representation of the GPUs PCI Express port.
+It implements functionality needed to perform CPU/GPU interactions. 
+The Host Interface does so, by reading commands such as memory copying and launching of \textit{Kernels} (further described in \cref{sec-pm-kernels}), and dispatches these commands to the appropriate hardware units.
+In addition to command handling, the Host Interface also facilitates synchronization between the CPU and GPU. 
+%TODO Consider host interface section (Covering section 2.5 CPU/GPU Interactions of The Cuda Handbook)
+
+%Global Scheduler
+The Global Scheduler is responsible of distributing parallel threads to SMs, where they are executed.
+Scheduling is done by splitting threads into thread blocks, which are further described in \cref{sec-pm-kernels}.
+After the threads are split into blocks, they are assigned by the Global Scheduler to the SMs.
+The Global Scheduler has to take several hardware constraints into consideration.
+First a single block cannot be split between two SMs.
+Also, each SM is limited in the amount of threads and blocks that can be scheduled to it. 
+%TODO General Purpose Computing on Graphics Processing section 3.2.1
+% "How to determine the thread block size for optimal performance is described in section 4.5.3. In addition to the maximum block and thread constraints the global scheduler also has to consider thread register usage and block shared memory usage [30][31]." -> Mathias optimization??
+
+
+%TODO Evt. uddyb her eller i warp.
 
 \begin{figure}[ht]
 	\centering
 	\fbox{
 		\includegraphics[width=1\textwidth]{figs/hw/hw-gpu}}
-	\caption{TBD}
+	\caption{Conceptual GPGPU hardware architecture}
 	\label{fig:hw-gpu}
 \end{figure}
+
+
+Further information regarding SMs and SPs is covered in \cref{sec-hw-streaming-multiprocessors} and \cref{sec-hw-streaming-processors}.
+Additional topics of the GPU hardware architecture is covered in the remaining subsections, including the memory model which is covered in \cref{sec-hw-memory-model}.
