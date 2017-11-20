@@ -2,7 +2,7 @@ As described in \cref{sec-hw-early-evolution}, the GPU hardware architecture has
 This section presents the GPU hardware architecture as a conceptual GPGPU architecture.
 The architecture is presented from a GPU computing point of view, meaning that some elements which are only used for graphical purposes are not included.
 
-%TODO Evt. tilføj Flynn's taxonomy (Hvis ikke Mathias introducere.)
+%TODO Evt. tilføj Flynn's taxonomy (Hvis ikke Mathias introducere.) (Den snupper jeg.)
 
 The GPU hardware architecture consists of three main blocks categories:
 \begin{itemize}
@@ -35,7 +35,7 @@ The Global Scheduler has to take several hardware constraints into consideration
 First a single block cannot be split between two SMs.
 Also, each SM is limited in the amount of threads and blocks that can be scheduled to it. 
 %TODO General Purpose Computing on Graphics Processing section 3.2.1
-% "How to determine the thread block size for optimal performance is described in section 4.5.3. In addition to the maximum block and thread constraints the global scheduler also has to consider thread register usage and block shared memory usage [30][31]." -> Mathias optimization??
+% "How to determine the thread block size for optimal performance is described in section 4.5.3. In addition to the maximum block and thread constraints the global scheduler also has to consider thread register usage and block shared memory usage [30][31]." -> Mathias optimization?? (Mathias dækker det)
 %TODO Evt. uddyb her eller i warp.
 
 \begin{figure}[ht]
