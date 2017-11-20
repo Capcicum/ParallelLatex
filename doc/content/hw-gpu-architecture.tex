@@ -1,8 +1,6 @@
 As described in \cref{sec-hw-early-evolution}, the GPU hardware architecture has undergone a drastic development, and still is.
 This section presents the GPU hardware architecture as a conceptual GPGPU architecture.
-The architecture is presented from a GPU computing point of view, meaning that some elements which are only used for graphical purposes are not included.
-
-%TODO Evt. tilføj Flynn's taxonomy (Hvis ikke Mathias introducere.) (Den snupper jeg.)
+The architecture is presented from a GPU computing point of view, meaning that some elements which are only used by the GPU for graphical purposes are not included.
 
 The GPU hardware architecture consists of three main blocks categories:
 \begin{itemize}
@@ -12,8 +10,9 @@ The GPU hardware architecture consists of three main blocks categories:
 \end{itemize}
 
 On a high level, the GPU can be described as an array of \textit{N} SMs, each consisting of \textit{M} cores (SPs). 
-The number of SMs contained in GPUs varies a lot, from small GPUs only containing a single SM, to the newest Nvidia architecture \textit{Tesla V100} containing 84 SMs.
-The number of SMs, and thereby the number of SPs, contained in the GPU enables more tasks to be processed at the same time or a single task to be processed faster if enough parallelism is implemented for this given task. 
+The number of SMs contained in GPUs varies a lot, from small GPUs only containing a single SM, to the newest Nvidia architecture \textit{Tesla V100} containing 84 SMs \cite{Nvidia2017}.
+The number of SMs, and thereby the number of SPs, contained in the GPU enables more tasks to be processed at the same time or a single task to be processed faster if enough parallelism is implemented for this given task.
+The tasks performed by a GPU is represented by threads, containing the instructions, the program counter, the memory context and the registers
 %TODO Tilføj evt. mere "general information" om GPU.
 
 
@@ -28,7 +27,7 @@ In addition to command handling, the Host Interface also facilitates synchroniza
 %TODO Consider host interface section (Covering section 2.5 CPU/GPU Interactions of The Cuda Handbook)
 
 %Global Scheduler
-The Global Scheduler is responsible of distributing parallel threads to SMs, where they are executed.
+The Global Scheduler, also known as "GigaThread Engine" by Nvidia \cite{Nvidia2009}, is responsible of distributing parallel threads to SMs, where they are executed.
 Scheduling is done by splitting threads into thread blocks, which are further described in \cref{sec-pm-kernels}.
 After the threads are split into blocks, they are assigned to the SMs by the Global Scheduler.
 The Global Scheduler has to take several hardware constraints into consideration.
@@ -49,3 +48,6 @@ Also, each SM is limited in the amount of threads and blocks that can be schedul
 
 Further information regarding SMs and SPs is covered in \cref{sec-hw-streaming-multiprocessors} and \cref{sec-hw-streaming-processors}.
 Additional topics of the GPU hardware architecture is covered in the remaining subsections, including the memory model which is covered in \cref{sec-hw-memory-model}.
+
+ %TODO Evt. tilføj Flynn's taxonomy (Hvis ikke Mathias introducere.) (Den snupper jeg.)
+ %TODO Add subsection

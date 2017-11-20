@@ -1,5 +1,5 @@
 The first GPUs  emerged back at the late 1990s, where a high demand of GPU accelerated 3D graphics served as the motivation for these new devices.
-This demand for 3D graphics originated from the gaming industry.
+This demand for 3D graphics originated from the gaming industry \cite{Johansson2010}.
 The GPU hardware architectures of these early versions was narrowly specialized.
 Back then, the 3D rendering of the GPU, worked by having a fixed series of standard operations implemented in the hardware called fixed-function pipelines.
 These functions were used render 3D-scenes, and could for instance be to \textit{apply lightning}, or to \textit{add texture}.
@@ -9,7 +9,7 @@ This limited the possibility for graphic programmers greatly, and led to a major
 
 The first change to the architecture, was to remove the strictly fixed-function pipelines.
 This was carried out by exchanging the highly specialized hardware functions with pools of flexible processor cores.
-These pools are separated between processors responsible for pixel specific calculations (Pixel shading) and processors responsible for vertex specific calculations (Vertex shading).
+These pools are separated between processors responsible for pixel specific calculations (Pixel shading) and processors responsible for vertex specific calculations (Vertex shading) \cite{Johansson2010}.
 The difference between these two shaders is that Pixel shaders operates per-pixel basis, and Vertex shaders perform operations to objects in a 3D environment.
 Changing to flexible programmable processor cores, allowed developers to apply custom algorithms to the processing pipeline executed by the GPU.
 
@@ -29,7 +29,7 @@ This new processor is more complex, yet more flexible and allows for a efficient
 The introduction of the new GPU hardware architecture containing a unified processor type started many research groups, with the focus of using the inherent computing power of GPUs for high-performance general purpose computing.
 However, development of general purpose applications relied on programming frameworks used for graphical programming.
 This forced programmers to transform their general computational problems to graphical problematics.
-This demand led to GPGPU frameworks used today, such as NVIDIAs "CUDA" or AMDs "ATI Stream".
+This demand led to GPGPU frameworks used today, such as NVIDIAs "CUDA" or AMDs "ATI Stream" \cite{Johansson2010}.
 The NVIDIAs CUDA programming model is further described in \cref{ch-programming-model}.
 
 
