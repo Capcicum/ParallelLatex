@@ -1,0 +1,12 @@
+
+
+\autoref{lst:stream-cre-des}
+
+\begin{lstlisting}[language=C++,caption={Stream creation, usage and destruction},label=lst:stream-cre-des]
+int main(int argc, char ** argv) {
+	cudaStream_t stream;
+	cudaStreamCreate(&stream);
+	cudaMemcpyAsync(d_in, h_in, 10 * sizeof(unsigned int), cudaMemcpyHostToDevice, stream);
+	example_kernel<<<10, 1024, 0, stream>>>(d_in, 10)
+	cudaStreamDestroy(stream) }
+\end{lstlisting}
