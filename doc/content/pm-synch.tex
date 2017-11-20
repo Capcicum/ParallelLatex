@@ -11,4 +11,4 @@ Using atomic can give a performance penalty, as threads trying to access a memor
 
 A different kind of synchronization that can be specified is between kernel calls.
 Kernel launch is per definition asynchronous which means that it is possible to continue execution on the host after a kernel launch.
-Waiting for a kernel to finish can explicitly be done with a function call to \textit{cudaDeviceSynchronize}, which waits for all the commands in the stream to finish (streams are described in \autoref{sec-pm-stream}).
+Waiting for a kernel to finish can explicitly be done with a function call to \textit{cudaDeviceSynchronize}, which waits for all the commands in the stream to finish (streams are described in \autoref{sec-pm-streams}).
