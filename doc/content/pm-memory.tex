@@ -1,4 +1,4 @@
-+In relation to the \cuda{} programming model, memory are distinguished by \textit{host} and \textit{device} memory.
+In relation to the \cuda{} programming model, memory are distinguished by \textit{host} and \textit{device} memory.
 In \cuda{}, the host handles allocation of device memory as well as copying from host memory to device memory and visa versa.
 An example can be seen in \autoref{lst:memory-host-to-device}, where device memory is allocated, host memory copied to device memory, a kernel is launched and memory is then copied back from device to host.
 \begin{lstlisting}[language=C++,caption={Example of allocation and copying from host to device},label=lst:memory-host-to-device]
