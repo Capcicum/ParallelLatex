@@ -1,0 +1,34 @@
+bulk
+nested
+task
+recursive
+
+things to watch out for:
+shared memory cannot be passed to a child kernel
+every thread executed the same program/kernel which means LOTS of launches to child kernels
+
+application
+divide and conquer algorithm
+recursion and quicksort
+dynamic parallel quicksort
+
+
+
+\begin{figure}[ht]
+	\centering
+	\fbox{
+		\includegraphics[width=0.3\textwidth]{figs/programming-model/recursive-kernel.pdf}
+	}
+	\caption{Recursive kernel call}
+	\label{fig:recursive-kernel}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	\fbox{
+		\includegraphics[width=0.4\textwidth]{figs/programming-model/recursion-quicksort.pdf}
+	}
+	\caption{Recursion and quicksort}
+	\label{fig:recursion-quicksort}
+\end{figure}

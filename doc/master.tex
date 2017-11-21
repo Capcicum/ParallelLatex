@@ -91,6 +91,7 @@
 		__global__, __shared__, __device__, __host__, __constant__,
 		__syncthreads, dim3,
 		cudaMemcpyDeviceToHost, cudaMemcpyHostToDevice, cudaMemcpyDeviceToDevice,
+		cudaStreamCreate, cudaStreamDestroy, cudaMemcpyAsync,
 	},
 	emphstyle={\lstfont{green!60!white}},
 	breaklines=true
@@ -186,7 +187,7 @@
 	\section{GPU Architecture}
 	\label{sec-hw-gpu-arhchitecture}
 	\input{content/hw-gpu-architecture}
-
+		
 		\subsection{Streaming Multiprocessors}
 		\label{sec-hw-streaming-multiprocessors}
 		\input{content/hw-streaming-multiprocessors}
@@ -199,15 +200,9 @@
 		\label{sec:HW-Threads}
 		\input{content/hw-threads}
 
-		\subsection{Blocks}
-		\label{sec-hw-blocks}
-		\input{content/hw-blocks}
-
 		\subsection{Warps}
 		\label{sec-hw-warps}
 		\input{content/hw-warps}
-
-		\subsection{(Address Spaces)}
 
 		\subsection{Memory Model}
 		\label{sec-hw-memory-model}
