@@ -112,3 +112,10 @@ In step three, pairwise multiplications are done.
 For this the \textit{map} pattern is applied as described in \autoref{sec-map}.
 In the final step each partial product within a segment need to be added up by doing a exclusive segmented sum scan as described in \autoref{sec:al_scan}.
 Using SpMv exploits a lot a data parallelism and is also efficient since its computations are based on sparse matrices.
+
+Computing SpMv in parallel can be done by assigning a row or an element to each thread.
+In the case where each row is assigned to a thread, also called thread per row, the thread makes a dot product of a row in the sparse input matrix and the dense column vector.
+In the case where each thread is assigned a single element, also called thread per element, a partial product is created.
+In this case each thread needs to communicate with other threads to compute the correct SpMv.
+
+%TODO: maybe make an example of row pr thread or element pr thread. notice that there is are code examples in the video! Maybe make a performance ananlysis if there is time?

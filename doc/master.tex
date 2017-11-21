@@ -93,6 +93,7 @@
 		__global__, __shared__, __device__, __host__, __constant__,
 		__syncthreads, dim3,
 		cudaMemcpyDeviceToHost, cudaMemcpyHostToDevice, cudaMemcpyDeviceToDevice,
+		cudaStreamCreate, cudaStreamDestroy, cudaMemcpyAsync,
 	},
 	emphstyle={\lstfont{green!60!white}},
 	breaklines=true
@@ -151,7 +152,8 @@
 \label{ch-intro}
 \input{content/intro.tex}
 
-	\section{Parallel vs. Serial Processing}
+ 
+ 	\section{Parallel vs Serial Processing}
 	\label{sec-par-vs-ser}
 	\input{content/pvs.tex}
 
@@ -187,7 +189,7 @@
 	\section{GPU Architecture}
 	\label{sec-hw-gpu-arhchitecture}
 	\input{content/hw-gpu-architecture}
-
+		
 		\subsection{Streaming Multiprocessors}
 		\label{sec-hw-streaming-multiprocessors}
 		\input{content/hw-streaming-multiprocessors}
@@ -200,15 +202,9 @@
 		\label{sec:HW-Threads}
 		\input{content/hw-threads}
 
-		\subsection{Blocks}
-		\label{sec-hw-blocks}
-		\input{content/hw-blocks}
-
 		\subsection{Warps}
 		\label{sec-hw-warps}
 		\input{content/hw-warps}
-
-		\subsection{(Address Spaces)}
 
 		\subsection{Memory Model}
 		\label{sec-hw-memory-model}
@@ -248,9 +244,9 @@
 	\label{sec-pm-dynamic}
 	\input{content/pm-dynamic.tex}
 	
-	\section{Intrinsics}
-	\label{sec-pm-intrinsics}
-	\input{content/intrinsics.tex}
+	\section{How to Compile and Run a \cuda{} Program}
+	\label{sec-pm-compile-run}
+	\input{content/pm-compile-run.tex}
 
 
 \chapter{Parallel Communication Patterns}
@@ -321,7 +317,7 @@
 	\label{sec-allocate}
 	\input{content/allocate.tex}
 	
-\chapter{Optimization of Cude Code}
+\chapter{Optimization of CUDA Code}
 \label{ch-opti-intro}
 \input{content/opti_intro.tex}
 
