@@ -9,6 +9,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{pdflscape}
+\usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage{cleveref}
 %\usepackage{oz} % conflicts with siunitx
@@ -25,6 +26,8 @@
 \newtheoremstyle{indented}{3pt}{3pt}{\addtolength{\leftskip}{2.5em}}{}{\bfseries}{.}{.5em}{}
 \theoremstyle{indented}
 \newtheorem{definition}{Definition}[section]
+\theoremstyle{indented}
+\newtheorem*{example}{Example}
 
 
 \usepackage[margin=1in]{geometry} % margin!
@@ -34,9 +37,7 @@
 % for SI units
 \usepackage[binary-units=true, detect-all]{siunitx}	
 
-\usepackage{amsmath} % \text{}
 \usepackage{amssymb}
-
 \usepackage{longtable}
 
 \usepackage[skip=4pt]{caption} % make captions closer to picture

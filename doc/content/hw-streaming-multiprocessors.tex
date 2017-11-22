@@ -1,14 +1,66 @@
-
-
-\textit{Special Function Units (SFUs)} are a approximation units, which computes fast approximations of transcendental functions such as sine, cosine, reciprocal and square root.
-%Each SFU also features four floating-point multipliers that can offer extra FP throughput in addition to SPs. The SFU pipelines are independent from the SP pipelines. 
-% GPU Performance Modeling and Optimization cpt 6
-% Add cite
+The SMs are the computational working blocks of the GPU.
+It handles all tasks submitted to the GPU, which is executed in its sub components.
+\Cref{fig:hw-sm} presents the hardware architecture of a basic SM, containing the key components which makes up the SM.
+However keep in mind that this is not the complete content of all SMs, as the ones chosen presented here, is selected to provide an overview.
 
 \begin{figure}[H]
 	\centering
 	\fbox{
-		\includegraphics[width=1\textwidth]{figs/hw/hw-sm} }
-	\caption{TBD}
+		\includegraphics[width=0.8\textwidth]{figs/hw/hw-sm} }
+	\caption{Streaming Multiprocessor and Streaming Processor conceptual architecture}
 	\label{fig:hw-sm}
 \end{figure}
+
+The key components of the SM are described one by one, including their functionalities within the SM:
+
+\begin{itemize}
+	\item \textbf{Streaming Processor (SM) -}  The most essential component of the SM is the SP, which is the basic computing element of the GPU.
+	\Cref{sec-hw-streaming-processors} describes SP in detail, this section will cover its purpose within the SM.
+	
+	\item \textbf{Special Function Units (SFU) -} SFUs are approximation units, which computes fast single-precision approximations of transcendental functions such as logarithm, exponential, sine and cosine \cite{Wilt2013}.
+	Each of the SFUs also contains four floating-point multipliers that can offer extra throughput in addition to the SPs \cite{Li2016}.
+	
+	\item \textbf{Register File -} The Register File can be described as a chuck of memory used by the threads running on the SPs within a single SM. 
+	The Register File runs at the same speed as the SP units, providing a minimum wait time on the register memory. 
+	Instead of having a separate register dedicated to a single SP core, all SPs of a SM accesses the Register File, where registers are installed to be used by the threads of a SM.
+	The data stored in the Register File is only visible to the thread which wrote it, and is deleted when the lifetime of the thread ends.
+	Further information regarding the Register File can be found in \cref{sec-hw-memory-model}.
+	
+	\item \textbf{Shared Memory -} The Shared Memory is used to share data between threads running in the same block within the SM.
+	Where the data stored in the Register File is only accessible by a single thread, the data stored in the Shared Memory can be accessed by multiple threads, which is further described in \cref{sec-hw-memory-model}.
+		
+	\item \textbf{Texture Cache -} The Texture Cache is a read-only cache used to access texture memory, allocated in the Global Memory.
+	Texture memory is useful for data containing interpolation, which for example could be 2D or 3D lookup tables \cite{Cook2008}.
+	As this data is mostly used for graphical purposes, the texture cache will not be further specified.
+	
+	\item \textbf{Constant Cache -} Just as the Texture Cache, the Constant Cache is read-only.
+	Constant Cache is used for commonly used data, which is stored in the constant memory instead of global memory.
+	This is done for the purpose of increasing performance in comparison to long latencies in conjunction with global memory accesses, which is further described in \cref{sec-hw-memory-model}.
+	
+	
+	\item \textbf{L1 Cache -} As the two other caches mentioned above, the L1 Cache is used by the SM to access frequently used data. 
+	Depending on the architecture version, the memory size of the L1 Cache is either fixed or configurable.
+	In case of a configurable L1 Cache size, the L1 shares a combined memory space with the Shared Memory.
+	This combined memory is then configurable, allowing for hardware that can be adjusted depending on the application needs. Like Constant Cache, the L1 Cache is covered in \cref{sec-hw-memory-model}.
+
+	\item  \textbf{Instruction Buffer \& Warp Scheduler -} The Instruction Buffer and Warp Scheduler are used to coordinate instructions and dispatch them to SPs.
+	More information regarding these components is found in \cref{sec-hw-warps}.
+		
+\end{itemize}
+
+\Cref{fig:hw-sm-inside} presents an overview of how the different computational components of the SM is connected to the different memory components.
+
+\begin{figure}[H]
+	\centering
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{figs/hw/hw-sm-inside} }
+	\caption{Internal Streaming Multiprocessor connections}
+	\label{fig:hw-sm-inside}
+\end{figure}
+
+
+
+
+
+
+
