@@ -1,7 +1,25 @@
-When performing general optimization of CUDA codes, threre are different levels of optimization.
+When performing general optimization of CUDA codes, threre are different levels of optimization:
 \begin{enumerate}
 	\item Picking a good algorithm
 	\item Basic principles for efficiency
 	\item Architecture specific detailed optimization
 	\item Micro optimization at instruction level
 \end{enumerate}
+
+Each of these levels of optimization can be seen as a good way to optimize code, however the performance gains gets smaller, compared to the time invested, as the level gets higher, thereby having level 1, \texttt{Picking a good algorithm} being the best way to see large improvements easily. The opposite can be said for level 4 \texttt{Mirco optimization at instruction level}, where even very small improvements can take multiple hours.\\
+
+A strategic way of optimizing code, is to use the APOD approach described in the \cref{sec-app-to-par}. As described with APOD, optimization is performed iteratively, where each iteration an attempt to further optimize performance is done. This process is then repeated until the wanted target is reached, or further attempts at optimization is deemed worthless.\\
+When focusing primarily on optimization using APOD, one of the important things in the \texttt{Analyze} step is finding hotspots/bottlenecks. This is a key Principe in parallel programming, where it is important to be able to determine what makes up the majority of the computation time. Amdahl's law, a formula which can be used to calculate a theoretical speedup, can be used to display why this is important.\\
+\begin{align*}
+	S_{lat}(s) &= \frac{1}{(1-p)+\frac{p}{s}}
+\end{align*}
+
+Where Amdalh's law described the speedup $S_lat(s)$ as a function of $s$, with $p$ being the proportion of execution time that was to be improved. Last, $s$ is the speedup achieved on the given part that benefited from the improvement. As example, an optimization which gave 20 times speedup on a task that took 10\% of our original computation time would then yield:
+
+ \begin{align*}
+ S_{lat}(20) &= \frac{1}{(1-0.1)+\frac{0.1}{20}}\\
+ 1.1049 &= \frac{1}{0.905}
+ \end{align*}
+ 
+ Which in the end only game a speed up of $1.1$ which in gives a computation time of $90.5\%$ of the original, despite the fact that a 20 times speedup was achieved on the given part of the computation.\\
+ Therefore, whenever attempting to optimize, its important to determine which task takes the most of the computation time and start optimize this first, as this is where the largest performance gains can be found. 
