@@ -1,1 +1,64 @@
-Maybe also pycuda, matlab cuda etc
+Until now this report has described many parallel patterns, algorithms and applications.
+Common for all are that they can be very cumbersome to implement and are prone to many  errors which are difficult to find such as wrong memory allocation, off-by-one errors, complex and unreadable source code, high algorithm complexity and deep understanding of CUDA and the underlying architecture.
+\\\\
+Thrust is a C++ library which enables programming of high performance applications with minimal programming efforts.
+It is based on the Standard Template Library (STL) and gives a rich collection of data parallel primitives such as scan, sort and reduce.
+Since the desired computation is described in a high abstraction level, Thrust will try to optimize and select the most efficient implementation.
+
+Thrust is basically built upon three building blocks which are vectors, algorithms and iterators.
+There are two types of vectors in Thrust: \textit{host\_vector} and \textit{device\_vector}.
+Host vectors are stored in host memory while device vectors are stored in device memory.
+This is makes allocation and copying between host and device relatively straight forward.
+An example of this is seen in \autoref{lst:thrust-vec}.
+\begin{lstlisting}[language=C,caption={Vectors in Thrust},label=lst:thrust-vec]
+#include <thrust/host_vector.h> 
+#include <thrust/device_vector.h> 
+int main(void) { 
+	thrust::host_vector<int> H(4); 
+	...// Initialize H
+	thrust::device_vector<int> D = H; 
+	...// Modify D directly
+	return 0;
+}
+\end{lstlisting}
+There are many benefits of using Thrust vectors.
+For instance the vectors can be resized and copying between host and device is straightforward by the overloaded "="-operator.
+Furthermore, both host and device vectors are deleted and the memory is freed once the function returns.
+Thrust also gives useful functions for copying and initializing data on the host and device.
+Examples of such functions are \textit{thrust::fill}, \textit{thrust::sequence} and \textit{thrust::copy}.
+It is still possible to extract raw CUDA device pointers from Thrust vectors
+
+Thrust enables easy usage of parallel communication patterns and algorithms as described in \autoref{ch-patterns} and \autoref{ch:algorithms}.
+Following are some examples of such patterns and algorithms which are supported in Thrust:
+\begin{itemizeSmall}
+	\item thrust::reduce
+	\item thrust::inclusive\_scan
+	\item thrust::exclusive\_scan
+	\item thrust::sort
+	\item thrust::sort\_by\_key
+	\item thrust::stable\_sort
+\end{itemizeSmall}
+For instance an exclusive scan is seen in \autoref{lst:thrust-scan}
+
+\begin{lstlisting}[language=C,caption={Exclusive scan in Thrust},label=lst:thrust-scan]
+#include <thrust/scan.h> 
+...
+int data[6] = {1, 0, 2, 2, 1, 3}; 
+thrust::exclusive_scan(data, data + 6, data); // data becomes {0, 1, 1, 3, 5, 6}
+...
+\end{lstlisting}
+This simplifies a lot TODO REF TO CODE EXAMPLE HERE IF TIME.
+
+Using the Thrust library also enables the usage of fairly complex iterators.
+Some of the iterators in Thrust are:
+\begin{description}
+	\item[Constant iterator] The \textit{constant\_iterator} returns the same value whenever it is accessed.
+	\item[Counting iterator] The \textit{counting\_iterator} increments its value by one with respect to the initialization value.
+	\item[Permutation iterator] The \textit{make\_permutation\_iterator} allows to fuse for example gather and scatter operations into a single iterator. This is a rather complex subject so it will not be discussed in depth in this report.
+	\item[Zip iterator] The \textit{zip\_iterator} takes multiple input sequences and returns a sequence of tuples. It is rather useful if for instance one would like to iterate over two distinct data types in a single loop.
+\end{description}
+All operators in Thrust are accessed like arrays.
+\\\\
+This was only an introduction to Thrust and which features there are that can ease CUDA application development, where many of the core CUDA details are abstracted away.
+This of course makes it easier and faster to prototype GPU applications, but at the cost of total control of the GPU.
+For more info of Thrust see \url{http://docs.nvidia.com/cuda/thrust/index.html}. (should this be a ref in stead?)
