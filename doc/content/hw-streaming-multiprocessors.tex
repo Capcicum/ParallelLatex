@@ -43,8 +43,7 @@ The key components of the SM are described one by one, including their functiona
 	In case of a configurable L1 Cache size, the L1 shares a combined memory space with the Shared Memory.
 	This combined memory is then configurable, allowing for hardware that can be adjusted depending on the application needs. Like Constant Cache, the L1 Cache is covered in \cref{sec-hw-memory-model}.
 
-	\item  \textbf{Instruction Buffer \& Warp Scheduler -} The Instruction Buffer and Warp Scheduler are used to coordinate instructions and dispatch them to SPs.
-	More information regarding these components is found in \cref{sec-hw-warps-threads}.
+	\item  \textbf{Warp Scheduler -} The Warp Scheduler is used schedule the threads within a SM, this is further described in \cref{sec-hw-warps-threads}.
 		
 \end{itemize}
 
