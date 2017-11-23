@@ -1,10 +1,4 @@
-% Single instruction multiple threads
-% Branches i kode -> helst ikke
-
-%Merge med flynn
-
-
-% Include: 
+This section will cover the execution model of the GPU, 
 Back in 1966 Michael J. Flynn proposed  a system to identify computer architectures designs and functionalities in four different classifications \cite{Flynn1972}. 
 The four classifications defined by Flynn were:
 
@@ -21,3 +15,10 @@ Where MIMD allows for multiple different instructions to be performed on multipl
 
 GPUs implement another classification, namely the SIMT, Single Instruction, Multiple Thread.
 Compared with SIMD, SIMT allows for multithreading, 
+
+% Undersøg om der er noget hw der fastgøre thread id, om der ligger noget memory som thread går ud og læser fra for at kende deres id.
+
+%TODO Understanding NVIDIA GPGPU Hardware-  SimultaneousMulti-threading
+
+% Single instruction multiple threads
+% Branches i kode -> helst ikke

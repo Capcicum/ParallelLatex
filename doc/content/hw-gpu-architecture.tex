@@ -36,9 +36,6 @@ More information regarding how threads and blocks are optimized split between SM
 \textbf{The Interconnection Network}, also known as "NoC", is a crossbar network.
 It serves as communication channel both among the different SMs and between the individual SMs and the L2 Cache.
 
-
-
-
 \begin{figure}[ht]
 	\centering
 	\fbox{
@@ -48,4 +45,5 @@ It serves as communication channel both among the different SMs and between the 
 \end{figure}
 
 Further information regarding SMs and SPs is covered in \cref{sec-hw-streaming-multiprocessors} and \cref{sec-hw-streaming-processors}.
-Additional topics of the GPU hardware architecture is covered in the remaining subsections, including the memory model which is covered in \cref{sec-hw-memory-model}.
+\Cref{sec-hw-warps-threads} covers the scheduling of threads on the GPU through warps.
+Lastly, the memory model is covered in \cref{sec-hw-memory-model}.
