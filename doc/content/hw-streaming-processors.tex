@@ -1,11 +1,38 @@
-The Streaming Processors(SP) goes under various different names including Scalar-Processors, Execution Units or the more famous CUDA Cores by Nvidia.
+The Streaming Processors(SPs) goes under various different names including \textit{Scalar-Processors}, \textit{Execution Units} or the more famous \textit{CUDA Cores} by Nvidia.
 SPs are the basic computing elements of a GPU, they perform fundamental operations, such as integer, floating-point, comparison and type conversions \cite{Li2016}.
-SPs are much like the cores located in CPUs, containing similarities such as simultaneous multi-threading (SMT).
+SPs are comparable to the cores located in CPUs, containing similarities such as simultaneous multi-threading (SMT).
+However, in order to increase the number of cores as seen for the GPU architecture, these SP cores need to be much simpler.
+SPs are stripped from complex features normally resided in CPU cores such as:
+
+\begin{itemize}
+	\item \textbf{No Out-of-order execution,} which otherwise allows for parallel execution for the internal computational units within the core. 
+	\item \textbf{No Cache memory,} instead the utilization of cache memory is moved to the SM. 
+\end{itemize}
+
+Furthermore, SPs does not contain its own computation registers, or instruction units.
+Instead they depend on the Registration File, Instruction Buffer and Warp Scheduler located in the SM.
+Therefore SPs has to be considered as a part of a multi-processor to be compatible with the usual understanding of a computing core \cite{Maitre2013}.
+
+By looking at the internal architecture of the SP, seen on \cref{fig:hw-sm}, it is seen that the SP contains five components:
+
+\begin{itemize}
+	\item \textbf{Dispatch Port -} The Dispatch Port is used to issue the execution of the given SP.
+	\item \textbf{Operand Collector -} The Operand Collector is used to load operands from the Register File and then buffer them for computation in the SP.
+	
+	\item \textbf{FP Unit -} The Floating Point Unit is, by its name, used to perform floating point data instructions.
+	It is one of the two dedicated data paths within the SP.
+	Support of double-precision (64-bit) floating point units is handled different depending on the architecture version.
+	Some architectures splits the double-precision instruction into multiple single-precision (32-bit) instructions, where other contain separate double-precision floating point units \cite{Johansson2010}.
+	
+	\item \textbf{INT Unit -} The Integer Unit, also known as Arithmetic Logic Unit (ALU), is the second data path within the SP. 
+	As its name indicates, the INT Unit performs integer data operations.
+	As the SP does not support Out-of-order execution, the two data paths cannot be active simultaneously.
+	
+	\item \textbf{Result Queue -} The Result Queue can be seen as the opposing component to the Operand Collector.
+	It buffers output data from the FP Unit and the INT Unit, until it is written to the Register File.
+	However, not all operations needs to be written back to the Register File.
+	If the output of a operation is used as a intermediate result, which is to be consumed by another operation, it is possible to forward it directly to the other operation without saving it to the Register File.
+	This concept is also known as a forwarding network, used in CPUs \cite{Kanter2009}.
+\end{itemize}
 
 
-
-%Increasing the number of cores, compared to an Intel P4, is
-%performed due to the lack of certain complex features that are usually implemented
-%on standard processors, including out-of-order execution, cache memory, and call
-%stack. In addition, the cores are organized into groups of eight, each with two texture
-%units, a texture cache and shared memory.
