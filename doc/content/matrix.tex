@@ -78,7 +78,7 @@ There are 4 steps to compute this using the CSR format for a sparse matrix repre
 			\textbf{Step 1} & Create a segmented representation of the value vector by using $V_v$ and $R_v$ \\
 			\textbf{Step 2} & Gather vector values using columns \\
 			\textbf{Step 3} & Pairwise multiply the resulting vectors from step 1 and 2 \\
-			\textbf{Step 3} & Do an exclusive segmented sum scan on the resulting vector from step 3
+			\textbf{Step 4} & Do an exclusive segmented sum scan on the resulting vector from step 3
 		\end{tabular}
 	}
 	\captionof{table}{Steps to SpMv}
