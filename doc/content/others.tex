@@ -1,0 +1,12 @@
+There are many libraries available for CUDA and these constitute a large ecosystem of optimized algorithms which are designed for high performance.
+Some of these libraries are:
+\begin{itemizeSmall}
+	\item [\textbf{cuBLAS}] Basic Linear Algebra Subroutines (BLAS) gives all needed functionalities to efficiently compute linear algebra problems.
+	\item [\textbf{cuFFT}] API for doing Fast Fourier Transforms (FFT) routines.
+	\item [\textbf{cuSparse}] BLAS-like routines, but optimized for sparse matrix formats.
+	\item [\textbf{cuRAND}] Pseudo- and quasi-random number generation routines. This API is particular good and fast for filling arrays with numbers which are drawn from a particular distribution.
+	\item [\textbf{NPP}] Nvidia Performance Primitives (NPP) is highly optimized for low-level image and video processing primitives. These include color conversion, image compression, image filters and more.
+	\item [\textbf{CULA}] CULA is a set of GPU-accelerated linear algebra libraries which implements eigensolvers, matrix factorizations, matrix solvers and more.
+\end{itemizeSmall}
+
+A general advise is to use these libraries, if possible, instead of implementing a lot of already implemented functionalities from scratch.

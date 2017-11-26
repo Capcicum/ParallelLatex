@@ -11,6 +11,6 @@ It also possible to invoke a CUDA kernel directly from MATLAB for example by usi
 \begin{lstlisting}[language=matlab,caption={Invoking CUDA kernel in MATLAB},label=lst:matlab]
 	kernel = parallel.gpu.CUDAKernel( 'someCUDAKernel.ptx', 'someCUDAKernel.cu' );
 \end{lstlisting}
-The \textit{.ptx} is needed for MATLAB when running the kernel and can this file can be generated when compiling the \textit{.cu} file.
+The \textit{.ptx} is needed for MATLAB when running the kernel and this file can be generated when compiling the \textit{.cu} file.
 As can be seen CUDA can be utilized in multiple ways in MATLAB with relatively little effort.
 For more information and full documentation on how to use a CUDA GPU in MATLAB see \url{www.mathworks.com/gpu}.
