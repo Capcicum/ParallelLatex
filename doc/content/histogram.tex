@@ -12,7 +12,7 @@ Histograms are used in many applications, often data analysis, and are probabili
 	\end{center}
 	\textit{and returns the ordered set}
 	\begin{center}
-		$[\sum_{i=0}^{n-1}(1\{ a_i \leq b_0 \}),\sum_{i=0}^{n-1}(1\{a_i \leq b_1\}),...,\sum_{i=0}^{n-1}(1\{a_i \leq b_{m-1}\})],$
+		$[\sum_{i=0}^{n-1}(1\{ a_i \leq b_0 \}),\sum_{i=0}^{n-1}(1\{b_0 \leq a_i \leq b_1\}),...,\sum_{i=0}^{n-1}(1\{b_{m-2} \leq a_i \leq b_{m-1}\})],$
 	\end{center}
 	\textit{where $1\{a\leq b\}$ is the indicator function returning one if $a\leq b$ else zero.}
 \end{definition}
@@ -40,22 +40,6 @@ for( int i = 0; i < DATA_COUNT; i++){
 	result[COMPUTE_BIN(data[i])]++}; 
 \end{lstlisting}
 
-Firstly, each of the result array locations is instantiated to zero Secondly, the data input array is loop for each element, and the resulting bin result array locations is calculated and incremented. The serial histogram has the work and step complexity $\mathcal{O}(n)$. The serial implementation is easy implemented for single threaded purposes, while a parallel implementation is quite difficult.
-
-Their are several different implementation strategies for parallel histogram algorithms. One possible strategy, often called the naive implementation, work by spawning a thread for each data element. Each thread, associated with one data element, computes the correct bin and increments the corresponding output array element. Without concurrency control race conditions will arise, because two or more threads may try to increment the same output array element at the same time. The concurrency control for the naive histogram implementation is the AtomicAdd function.
-
-\begin{lstlisting}[language=C,caption={TBD},label=lst:histogram_atomicadd]
-__global__ void naive_histo_kernel(int *d_bins, const int *d_in, const int BIN_COUNT)
-{
-	int myId = threadIdx.x;
-	int myItem = d_in[myId];
-	int myBin = COMPUTE_BIN[myItem];
-	atomicAdd(&(d_bins[myBin]), 1);
-}
-\end{lstlisting}
-
-The code for a simple naive histogram implementation in CUDA is seen in listing \ref{lst:histogram_atomicadd}. The implementation defines the thread id which is used to find the associated input array element. The corresponding bin is calculated using an application specific function, here defined as COMPUTE\_BIN. The CUDA specific atomicAdd is used to increment the correct bin, as it prevents race conditions. The naive parallel histogram has a work complexity of $\mathcal{O}(n)$, as one thread is allocated each data element. The step complexity is harder to define, as it varies based on the data input an number of bins. The step complexity depends on the dependency chain course by the concurrency control, as the atomicAdd will serialize the access to the output array element. When there are few data elements per bin then contention is low and the execution is fast, whereas many data elements per bin will increase the contention making execution slow.  
-
-
+Firstly, each of the result array locations is instantiated to zero Secondly, the data input array is loop for each element, and the resulting bin result array locations is calculated and incremented. The serial histogram has the work and step complexity $\mathcal{O}(n)$. The serial implementation is easy implemented for single threaded purposes, while a parallel implementation is quite difficult. 
 
            
