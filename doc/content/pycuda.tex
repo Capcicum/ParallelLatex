@@ -1,0 +1,12 @@
+PyCUDA enables execution of Python code on a CUDA device from a Python-script.
+PyCUDA wraps all CUDA functionality and enables execution of kernels and copying data between the host and the device.
+A major advantage of using PyCUDA in Python scripts is that execution times are potentially sped up.
+
+Typical Python structures and libraries such as the popular \textit{numpy} library can be used in conjunction with PyCUDA, which is a huge benefit for researchers and developers working in this high level scripting language but would still like to be able to boost their algorithm performance.
+
+Nevertheless, using PyCUDA has some CUDA knowledge preliminaries.
+Kernels are written as C++ code, which are parsed to the device.
+This means that the user of PyCUDA needs to know how to write such kernels.
+There are a lot of features and details which will not be explained here.
+This section is merely here such that the reader is aware of that CUDA utilization exists in Python.
+For more information of PyCUDA and how it can be used please see \url{https://documen.tician.de/pycuda/}.

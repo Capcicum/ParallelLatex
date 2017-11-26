@@ -9,6 +9,8 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage{cleveref}
 %\usepackage{oz} % conflicts with siunitx
@@ -31,18 +33,15 @@
 
 \usepackage[margin=1in]{geometry} % margin!
 \usepackage{listings}
-\usepackage[dvipsnames]{xcolor}
+%\usepackage[dvipsnames]{xcolor}
 
 % for SI units
 \usepackage[binary-units=true, detect-all]{siunitx}	
 
-\usepackage{amsmath} % \text{}
 \usepackage{amssymb}
-
 \usepackage{longtable}
 
 \usepackage[skip=4pt]{caption} % make captions closer to picture
-
 
 \usepackage{setspace}
 %\singlespacing
@@ -198,13 +197,9 @@
 		\label{sec-hw-streaming-processors}
 		\input{content/hw-streaming-processors}
 
-		\subsection{Threads}
-		\label{sec:HW-Threads}
-		\input{content/hw-threads}
-
-		\subsection{Warps}
-		\label{sec-hw-warps}
-		\input{content/hw-warps}
+		\subsection{Execution model - Warps \& Threads}
+		\label{sec-hw-warps-threads}
+		\input{content/hw-warps-threads}
 
 		\subsection{Memory Model}
 		\label{sec-hw-memory-model}
@@ -215,7 +210,7 @@
 	\input{content/hw-variations}
 
 
-\chapter{Programming Model}
+\chapter{\cuda{} Programming Model}
 \label{ch-programming-model}
 \input{content/programming-model-intro.tex}
 % mapping: Programming to Hardware
@@ -345,7 +340,7 @@
 	\label{sec-allocate}
 	\input{content/allocate.tex}
 	
-\chapter{Optimization of CUDA Code}
+\chapter{Optimization}
 \label{ch-opti-intro}
 \input{content/opti_intro.tex}
 
@@ -374,9 +369,9 @@
 	\input{content/graph.tex}
 	
 	\section{Exercises}
+		\input{content/exercises-intro.tex}
 	
 		\subsection{Exercise 1}
-		
 		\subsection{Exercise 2}
 		
 		\subsection{Exercise 3}
@@ -397,9 +392,21 @@
 	\label{sec-thrust}
 	\input{content/thrust.tex}
 	
+	\section{PyCUDA}
+	\label{sec-pycuda}
+	\input{content/pycuda.tex}
+	
+	\section{CUDA in MATLAB}
+	\label{sec-matlab}
+	\input{content/matlab.tex}
+	
 	\section{OpenCL}
 	\label{sec-opencl}
 	\input{content/opencl.tex}
+	
+	\section{Others}
+	\label{sec-others}
+	\input{content/others.tex}
 
 % citation test
 \cite{McCool2012}
@@ -408,7 +415,9 @@
 \bibliographystyle{plain}
 \bibliography{bib}
 
+\newpage
 \appendix
-\chapter{test}
+\chapter{Reading Plan}
+	\input{content/reading-plan.tex}
 
 \end{document}

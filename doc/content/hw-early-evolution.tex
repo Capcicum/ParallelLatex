@@ -2,7 +2,7 @@ The first GPUs  emerged back at the late 1990s, where a high demand of GPU accel
 This demand for 3D graphics originated from the gaming industry \cite{Johansson2010}.
 The GPU hardware architectures of these early versions was narrowly specialized.
 Back then, the 3D rendering of the GPU, worked by having a fixed series of standard operations implemented in the hardware called fixed-function pipelines.
-These functions were used render 3D-scenes, and could for instance be to \textit{apply lightning}, or to \textit{add texture}.
+These functions were used to render 3D-scenes, and could for instance be to \textit{apply lightning}, or to \textit{add texture}.
 Using a set of specialized hardware implementations to perform these operations, allowed for a large performance boost in comparison to the same execution handed out by the general purpose CPU.
 However, using these fixed-function pipelines, meant that it was not possible to configure which function to perform, but only possible to adjust the parameters for these functions.
 This limited the possibility for graphic programmers greatly, and led to a major switch in the GPU hardware architecture.
@@ -13,23 +13,19 @@ These pools are separated between processors responsible for pixel specific calc
 The difference between these two shaders is that Pixel shaders operates per-pixel basis, and Vertex shaders perform operations to objects in a 3D environment.
 Changing to flexible programmable processor cores, allowed developers to apply custom algorithms to the processing pipeline executed by the GPU.
 
-% TODO Consider Fixed-function pipeline img
-
 However balancing the number of processors dedicated to either pixel or vertex calculations proved to be a difficult task.
 As the workload to be distributed between the two depends on the individual application, a generic division of processors is unrealistic.
-Usual applications contain majority of pixels to be drawn in comparison to the amount of vertices to be calculated.
+Usual applications contain a majority of pixels to be drawn in comparison to the amount of vertices to be calculated.
 This distribution is however not alway true, as some applications demands for more verticies calculations than pixels.
 This results in applications, where roughly half of the processing pool is idle for most of the processing time.
 As this suboptimal uneven work distribution was unacceptable for a general purpose GPU, the architecture was further improved.
 
 This led to the birth of the first GPGPU architecture. 
-Here a narrowing from the two specialized processor types were unified to a generic general purpose processor type, capable of handling the tasks of both of its predecessors.
-This new processor is more complex, yet more flexible and allows for a efficient workload distribution as tasks is distributable throughout all processors.
+Here a narrowing from the two specialized processor types were unified to a single generic general purpose processor type, capable of handling the tasks of both of its predecessors.
+This new processor is more complex, yet more flexible and allows for a efficient workload distribution as tasks are distributable throughout all processors.
 
 The introduction of the new GPU hardware architecture containing a unified processor type started many research groups, with the focus of using the inherent computing power of GPUs for high-performance general purpose computing.
 However, development of general purpose applications relied on programming frameworks used for graphical programming.
 This forced programmers to transform their general computational problems to graphical problematics.
 This demand led to GPGPU frameworks used today, such as NVIDIAs "CUDA" or AMDs "ATI Stream" \cite{Johansson2010}.
-The NVIDIAs CUDA programming model is further described in \cref{ch-programming-model}.
-
-
+The NVIDIAs CUDA programming model is further described in \cref{ch-programming-model}, instead the remaining of this chapter will focus on the architectural part of the GPGPU.

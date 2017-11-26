@@ -1,0 +1,16 @@
+MATLAB is a scripting language which is very widely used among engineers, data scientists, researchers and more.
+It is often used for algorithm development, data analysis, data visualization and mathematical modeling.
+MATLAB also supports GPU computing, where functions can be executed on the GPU, and more specifically it provides mechanisms of how to interface to a CUDA GPU.
+
+Using MATLAB with a GPU can very speed up many algorithms, especially those who compute on large data sets such as the pixels of an image.
+
+The MATLAB profiler can be used to identify computationally heavy sections in the script. 
+Such sections indicate that GPU acceleration might be useful.
+The easiest way to utilize the GPU via MATLAB is by converting an input array to a GPU array with the \textit{gpuArray(input)} function call in MATLAB.
+It also possible to invoke a CUDA kernel directly from MATLAB for example by using the function shown in \autoref{lst:matlab}.
+\begin{lstlisting}[language=matlab,caption={Invoking CUDA kernel in MATLAB},label=lst:matlab]
+	kernel = parallel.gpu.CUDAKernel( 'someCUDAKernel.ptx', 'someCUDAKernel.cu' );
+\end{lstlisting}
+The \textit{.ptx} is needed for MATLAB when running the kernel and can this file can be generated when compiling the \textit{.cu} file.
+As can be seen CUDA can be utilized in multiple ways in MATLAB with relatively little effort.
+For more information and full documentation on how to use a CUDA GPU in MATLAB see \url{www.mathworks.com/gpu}.
