@@ -1,8 +1,11 @@
 A kernel specifies functionality to be executed on a device.
 It is specified using the declaration specifier \textit{\_\_global\_\_}, so that it can be distinguished from a regular C function.
+If it is desired to call another function inside a kernel, the function must be specified with the declaration specifier \textit{\_\_device\_\_} to indicate that this is a device function.
+This means that is can \underline{only} be called by the device, and not by the host.
 When a kernel is launched, it is executed \textit{N} times in parallel by \textit{N} threads on the device.
 The kernel is launched from the host, where it is specified how many \cuda{} threads to execute the kernel.
-The launch of a kernel is specified by "$kernel\_name<<< number\_of\_blocks, number\_of\_threads\_in\_each\_block >>>$"
+The launch of a kernel is specified by "$kernel\_name<<< number\_of\_blocks, number\_of\_threads\_in\_each\_block >>>$".
+Only a single kernel can be executed at a time.
 An example of a kernel and how it is being launched can be seen in \autoref{lst:kernel}.
 \begin{lstlisting}[language=C,caption={Kernel example},label=lst:kernel]
 __global__ void hello_world(float * d_out, float * d_in){
