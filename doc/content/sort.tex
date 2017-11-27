@@ -1,0 +1,25 @@
+The ability to sort an array is a important in programming, both for serial and parallel applications. Sorting and array mean to order the element in a specific way, this could be both numerical or lexicographical. This section will only focus on examples and sorting of numerical minimum to maximum sorting. A formal definition of the numerical minimum to maximum sort is seen in   
+
+\begin{definition}
+	\label{def:al_sort}
+	\textit{The sort operation takes an unordered set of n elements}
+	\begin{center}
+		$[a_0,a_1,...,a_{n-1}],$
+	\end{center}
+	\textit{and returns permutation}
+	\begin{center}
+		$sgn([a_0,a_1,...,a_{n-1}])$
+	\end{center}
+\end{definition}
+\begin{example}
+	With the input array
+	\begin{center}
+		$[3,6,9,1,2,6,2,3],$
+	\end{center}
+	the return of the sort is
+	\begin{center}
+		$[1,2,2,3,3,6,6,9].$
+	\end{center}
+\end{example}
+
+There are many way of implementing a sorting algorithm both in the serial and in the parallel context. Many factors a present when choosing a sorting algorithm for an application. For the serial implementations examples of sorting algorithm is Quicksort, Merge sort, Heapsort and Bubble sort. The average work complexity of the serial sorting algorithm is $\mathcal{O}(n~log~n)$, so a  
