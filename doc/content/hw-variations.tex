@@ -1,1 +1,61 @@
 % Vis Warp scheduler eksempler
+The purpose of this section is to provide some real values to the concepts presented in the previous sections.
+As \cref{sec-hw-gpu-arhchitecture} focused on presenting a conceptual presentation of the GPU, a series of real GPUs are presented in \cref{alg-gpu-var}.
+
+As it is seen in the table, the biggest trend in the GPU evolution over the last couple of years have been to focus on increasing the number of SMs within the GPU.
+As this increases the total number of SPs as well as the total Register File, Shared and L1 Memory available, it greatly impacts the overall GPU performance.
+
+\begin{table}[]
+	\begin{adjustbox}{width=1\textwidth}
+	\centering
+	\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\multicolumn{4}{|c|}{\textbf{General}}                                            & \multicolumn{2}{c|}{\textbf{Computational}} & \multicolumn{3}{c|}{\textbf{Memory}}                              & \multicolumn{2}{c|}{\textbf{Cache}} \\ \hline
+	\textbf{Architecture} & \textbf{Year} & \textbf{GPU} & \multicolumn{1}{l|}{\textbf{Chip}} & \textbf{SMs(\#)}     & \textbf{SPs(\#)}     & \textbf{Register(kB)} & \textbf{Shared(kB)} & \textbf{Global(MB)} & \textbf{L1(kB)}  & \textbf{L2(kB)}  \\ \hline
+	\cite{Li2016} Tesla 1.0     & 2007          & C870         & C80                                & 8                    & 128                  & 8                     & 16                  & 1536                & N/A              & N/A              \\ \hline
+	\cite{Li2016} Tesla 2.0     & 2009          & C1060        & GT200B                             & 10                   & 240                  & 16                    & 16                  & 4096                & N/A              & N/A              \\ \hline
+	\cite{Li2016} Fermi 1.0    & 2010          & GTX 460      & GF104                              & 7                    & 336                  & 32                    & 48                  & 1024                & 16               & 768              \\ \hline
+	\cite{Li2016} Fermi 1.0      & 2011          & C2070        & GF100                              & 14                   & 448                  & 32                    & 48                  & 6144                & 16               & 768              \\ \hline
+	\cite{Nvidia2016} Kepler        & 2013          & Tesla K40    & GK110                              & 15                   & 2880                 & 256                   & 48                  & 12288               & N/A              & 1536             \\ \hline
+	\cite{Nvidia2016} Maxwell  2.0   & 2015          & Tesla M40    & GM200                              & 24                   & 3072                 & 256                   & 96                  & 12288               & N/A              & 3072             \\ \hline
+	\cite{Nvidia2016} Pascal          & 2016          & Tesla P100   & GP100                              & 56                   & 3584                 & 256                   & 64                  & 16384               & N/A              & 4096             \\ \hline
+	\end{tabular}
+	\end{adjustbox}
+	\caption{Nvidia GPU comparisons. The SPs(\#) represents the total amount of Streaming Processors, where Register(kB), Shared(kB) \& L1(kB) shows per Streaming Multiprocessor values.}
+	\label{alg-gpu-var}
+\end{table}
+
+In addition, \cref{alg-gpu-thd} presents the increase of threads available for the newest GPUs, while keeping the increase of SMs in mind, it is seen that the total amount of threads has moved from 6144 threads back in 2007 to 114.688 threads available in Nvidias Pascal architecture.
+\\\\
+
+\begin{table}[]
+	\begin{adjustbox}{width=1\textwidth}
+		\centering
+		\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\multicolumn{4}{|c|}{\textbf{General}}                                            & \multicolumn{6}{c|}{\textbf{Threads}}                                                                                       \\ \hline
+			\textbf{Architecture} & \textbf{Year} & \textbf{GPU} & \multicolumn{1}{l|}{\textbf{Chip}} & \textbf{Thds/Block} & \textbf{Blocks/SM} & \textbf{Thds/SM} & \textbf{Thds/Warp} & \textbf{Warps/Block} & \textbf{Warps/SM} \\ \hline
+			Tesla 1.0     & 2007          & C870         & C80                                & 512                 & 8                  & 768              & 32                 & 16                   & 24                \\ \hline
+			Tesla 2.0     & 2009          & C1060        & GT200B                             & 512                 & 8                  & 1024             & 32                 & 16                   & 32                \\ \hline
+			Fermi 1.0     & 2010          & GTX 460      & GF104                              & 1024                & 8                  & 1536             & 32                 & 32                   & 48                \\ \hline
+			Fermi 1.0     & 2011          & C2070        & GF100                              & 1024                & 8                  & 1536             & 32                 & 32                   & 48                \\ \hline
+			Kepler        & 2013          & Tesla K40    & GK110                              & 1024                & 16                 & 2048             & 32                 & 32                   & 64                \\ \hline
+			Maxwell 2.0   & 2015          & Tesla M40    & GM200                              & 1024                & 32                 & 2048             & 32                 & 32                   & 64                \\ \hline
+			Pascal        & 2016          & Tesla P100   & GP100                              & 1024                & 32                 & 2048             & 32                 & 32                   & 64                \\ \hline
+		\end{tabular}
+	\end{adjustbox}
+	\caption{Nvidia GPU thread limitation comparison. \cite{Li2016}}
+	\label{alg-gpu-thd}
+\end{table}
+
+Lastly, Nvidia has announced their Volta Architecture \cite{Nvidia2017} which is expected to release in 2018.
+The key features and changes of the new architecture is presented below:
+\begin{itemize}
+	\item Reintroduction of L1 Cache in a new combination with the Shared Memory, for significantly improvements.
+	\item 84 "Volta" SMs allowing for 5120 SPs.
+	\item 6144kB L2 Cache size.
+	\item Up to 96kB Shared Memory.
+	\item And much more, which can be found in \cite{Nvidia2017}.
+\end{itemize}
+
+Next, \cref{ch-programming-model} will present the CUDA Programming Model, introducing the general operations needed in GPU programming. 
