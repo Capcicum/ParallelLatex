@@ -11,8 +11,6 @@ SPs are stripped from complex features normally resided in CPU cores such as:
 
 Furthermore, SPs does not contain its own computation registers, or instruction units.
 Instead they depend on the Registration File and Warp Scheduler located in the SM.
-Therefore SPs has to be considered as a part of a multi-processor to be compatible with the usual understanding of a computing core \cite{Maitre2013}.
-
 By looking at the internal architecture of the SP, seen on \cref{fig:hw-sm}, it is seen that the SP contains five components:
 \\\\
 \textbf{Dispatch Port -} The Dispatch Port is used to issue the execution of the given SP.

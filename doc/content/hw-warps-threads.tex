@@ -24,21 +24,25 @@ Once threads are divided into blocks, the blocks are dispatched by the Global Sc
 A single SM can be assigned with multiple blocks, depending on the SMs limitations such as its memory.
 In the case of multiple blocks assigned to a SM, the memory resources of the SM is divided evenly among the blocks.
 \\\\
-\textbf{Thread Assignment -} Within the SM, the SIMT execution model is handled out by further organize the threads within the thread blocks into execution groups which is referenced to as SIMT units.
+\textbf{Thread Assignment (Warps) -} Within the SM, the SIMT execution model is handled out by further organize the threads within the thread blocks into execution groups which is referenced to as SIMT units.
 These SIMT units are better known as \textbf{Warps} using Nvidia terminology \cite{Nvidia2009} or Wavefronts by AMD \cite{Johansson2010}.
 As the therm Warps is the mostly used, it is chosen for SIMT units throughout this report.
 By the definition of the SIMT execution model, all threads within a warp is executed together, sharing the same instruction.
-The size of a warp highly depends on the specific GPU architecture, \cref{sec-hw-variations} presents different variants.
+The main reason for grouping threads into warps, is to limit the amount of memory transactions performed by threads.
+When threads have to access the Global Memory, the Warps are responsible for performing reads or writes for each thread within the warp, and in that way reduce the number of transactions performed.
+The size of a warp is fixed to 32 threads/warp for all Nvidia GPU architectures \cite{Li2016}.
 \\\\
 \textbf{Thread Scheduling -} Scheduling of the warps is done by the Warp  Scheduler located within each SM.
-Depending on the architecture, the number of Warp Schedulers within a SM varies.
 As a warp is created, it is assigned to a warp scheduler, which it is assigned to for its remaining lifetime.
-To see examples of different Warp Scheduler structures, see \cref{sec-hw-variations}, however, for now a conceptual example is used to illustrate how warp scheduling works.
+Each Warp Scheduler contains one or more Instruction Dispatch Units, which can be used to dispatch multiple different instructions at a time.
+Depending on the architecture, the number of Warp Schedulers and Instruction Dispatch Units within a SM varies, however a conceptual example is used to illustrate how warp scheduling works.
 
 \Cref{fig:hw-warp-scheduling} shows a scenario with a single Warp Scheduler, containing two Instruction Dispatch Units. 
-These units are used by the Warp Scheduler to dispatch multiple different instructions at a time.
-In the example presented on the figure, the Warp Scheduler selects a warp and if possible, issues two instructions, one for each half warp for each cycle.
-Hereafter the warp is dispatched for execution onto the SPs and/or SFUs of the SM.
+In the example presented on the figure, the Warp Scheduler selects a warp, for instance the yellow marked Warp number 4 and splits it into two "half warps".
+It hereafter executes two different Instruction to the two halfs, which are dispatched to execution on the SPs and/or SFUs.
+However, this requires that the instructions handed out by the warps is executable by only half a warp.
+Next, a new available warp is scheduled with a new set of instructions.
+This rotation is continued until all instructions are executed.
 
 \begin{figure}[ht]
 	\centering
@@ -48,6 +52,7 @@ Hereafter the warp is dispatched for execution onto the SPs and/or SFUs of the S
 	\label{fig:hw-warp-scheduling}
 \end{figure}
 
+Again, some architectures only contains one Instruction Dispatch Unit per Warp Scheduler, limiting the number of instructions that a warp can perform to one for all threads.
 
 Prior to execution, instructions are located in a instruction queue, accessible to the Warp scheduler.
 The warp scheduler is responsible of selecting the instructions that should be executed during the next clock cycle.
