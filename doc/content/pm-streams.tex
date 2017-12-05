@@ -1,10 +1,12 @@
 They way that the CPU communicates with the GPU is with commands.
 This can for instance be memory transfers and kernel launches.
 These commands are sent via streams, either implicitly or explicitly.
-A stream is a sequence of operations that execute in order.
-It is possible to have multiple streams running concurrently and there can be a lot of reasons and benefits for this.
+A stream is a virtual work queue (where the operations are executed in otder) used for asynchronous operations so that the CPU can operate concurrently with the GPU.
+It is possible to have multiple streams and there can be a lot of reasons and benefits for this.
+It is possible to perform memory copies concurrently with kernel executions.
+To support this, the "copy engine" can perform a DMA transfer on the PCI-e bus while the SM's are executing a kernel.
 Kernel launches are per definition asynchronous, but memory transfers can be either synchronous or asynchronous.
-To make a memory transfer asynchronous, a different sent of \cuda{} functions must be used (suffixed with a "Async").
+To make a memory transfer asynchronous, a different set of \cuda{} functions must be used (suffixed with a "Async").
 An example of asynchronous kernel launches and memory transfers can be seen in \autoref{lst:stream-default-usage}.
 As all the operations are asynchronous, they will simply be executed in the order, but the CPU will not wait for the operations to finish.
 In this example no specific streams are linked to the operation, which means that all operations are linked to the default stream (number zero).

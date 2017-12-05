@@ -32,23 +32,23 @@ To compute the sort, a lot of work has to be done (the actual source code can be
 The following sequence of techniques are performed for every bit of the values to sort (32bit values in this exercise).
 The steps are visualized in \autoref{fig:ex4-radix-sort}.
 \begin{enumerate}
-	\item[\textbf{Step 0}]
+	\item[\textbf{Step 1}]
 	An exclusive prefix sum scan is performed over a "vector" of predicates (ones or zeros).
 	This is done for both the zeros and ones to sort.
 	For the ones to sort, the predicate is true if the bit is one and false if it is zero, and the other way around (inverted) for the zeros to sort.
 	It is used to determine the scattering offset address.
 	Because the number of elements to sort is larger than the maximum number of threads in a thread block, the kernel must be executed using multiple thread blocks.
 	As it is only possible to synchronize threads within a block, the resulting scan is actually a segmented scan, which is not the desired operation in this context.
-	\item[\textbf{Step 1}]
-	Because of the segmented scan operation, it is necessary to store the highest scattering offset address, and use this later to convert the segmented scan to a regular scan. 
 	\item[\textbf{Step 2}]
-	An exclusive prefix sum scan is performed on the elements stored from \textbf{Step1} to generate the offset value which should be added to the elements of the segmented scan.
+	Because of the segmented scan operation, it is necessary to store the highest scattering offset address, and use this later to convert the segmented scan to a regular scan. 
 	\item[\textbf{Step 3}]
-	A histogram of the number of ones and zeros are generated.
+	An exclusive prefix sum scan is performed on the elements stored from \textbf{Step1} to generate the offset value which should be added to the elements of the segmented scan.
 	\item[\textbf{Step 4}]
+	A histogram of the number of ones and zeros are generated.
+	\item[\textbf{Step 5}]
 	An exclusive prefix sum scan is performed over the histogram.
 	This is to generate the scattering offset to where the zeros and ones should start in the resulting vector.
-	\item[\textbf{Step 5}]
+	\item[\textbf{Step 6}]
 	In the last step, the results of the precious steps are used to generate the resulting vector of sorted ones and zeros.
 	The result from \textbf{Step 4} determines the start offset for zeros (0) and ones (7).	
 	The value on index "blockId" from the result in \textbf{Step 2} is added to all elements in each block of the segmented scan from \textbf{Step 0}.
