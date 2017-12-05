@@ -11,6 +11,6 @@ An example of a kernel and how it is being launched can be seen in \autoref{lst:
 __global__ void hello_world(float * d_out, float * d_in){
 	print('hello world') }
 int main(int argc, char ** argv) {
-	hello_world<<<1, 100>>>(d_out, d_in); }
+	hello_world<<<1, 100>>>(); }
 \end{lstlisting}
 The kernel is launched with a single thread block with 100 threads.
