@@ -1,4 +1,4 @@
-Histograms are used in many applications, often data analysis, and are probability density function approximations for given data arrays. A histogram is an algorithm that counts the number of observations within specified data range sections called bins. A histogram consists of bins which individually defines a range of values within the entire data value range. The output of a histogram is made by counting the number of data values that fall into each bins range. A formal definition with a concrete example of the histogram is seen in \cref{def:al_histogram}.
+Histograms are probability density function approximations for given data arrays. A histogram is an algorithm that counts the number of observations within specified data range sections called bins. A histogram consists of bins which individually defines a range of values within the entire data value range. The output of a histogram is created by counting the number of data values that fall into each bins range. A definition with an example of the histogram is seen in \cref{def:al_histogram}.
 
 \begin{definition}
 	\label{def:al_histogram}
@@ -33,13 +33,13 @@ Histograms are used in many applications, often data analysis, and are probabili
 
 Histograms are used in a variety of applications including, data analysis, image processing, data representation and data mining. Several parallel algorithms and application also use the histogram functionality including the radix sort presented in \cref{sec:al_sort_radix}. The task of implementing a serial histogram is rather trivial, and the pseudocode of such implementation is seen in listing \ref{lst:histogram_serial}.
 
-\begin{lstlisting}[language=C,caption={TBD},label=lst:histogram_serial]
+\begin{lstlisting}[language=C,caption={Pseudo code serial implementaion of histogram},label=lst:histogram_serial]
 for( int i = 0; i < BIN_COUNT; i++){
 	result[i] = 0}; 
 for( int i = 0; i < DATA_COUNT; i++){ 
 	result[COMPUTE_BIN(data[i])]++}; 
 \end{lstlisting}
 
-Firstly, each of the result array locations is instantiated to zero Secondly, the data input array is loop for each element, and the resulting bin result array locations is calculated and incremented. The serial histogram has the work and step complexity $\mathcal{O}(n)$. The serial implementation is easy implemented for single threaded purposes, while a parallel implementation is quite difficult. 
+First, each of the result array locations is instantiated to zero Second, the data input array is loop for each element, and the resulting bin result array locations is calculated and incremented. The serial histogram has the work and step complexity $\mathcal{O}(n)$. The serial implementation is easy implemented for single threaded purposes, while a parallel implementation is quite difficult. 
 
            
