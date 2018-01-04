@@ -1,11 +1,11 @@
-One of the important concepts to understand when paralleling work is the two concepts of step and work complexity. Each of these two terms describe a different cost in term of the complexity it takes for an algorithm to be run. Step complexity is the concept of how many steps its going to take for a given algorithm, whereas work complexity is the amount of work it is going to take for the given algorithm to finish. \Cref{fig:stepnwork} displays an example where a given operation independent of ordering, such as plus of multiplication, is performed on eight elements in a three like structure. For this given example the work complexity would be seven(assuming that each of the seven operations have a work complexity of 1), as if we were to for instance add eight number together i would take seven plus operations. Meanwhile, as we divided our algorithm into a tree like structure, we have a step at each level of the tree, thereby giving a total of three steps.
+One of the important concepts to understand when paralleling work is the two concepts of step and work complexity. Each of these two terms describes a different cost in term of the complexity it takes for an algorithm to be run. Step complexity is the concept of how many steps it is going to take for a given algorithm, whereas work complexity is the amount of work it is going to take for the given algorithm to finish. \Cref{fig:stepnwork} displays an example where a given operation independent of order, such as plus of multiplication, is performed on eight elements in a tree-like structure. For this given example the work complexity would be seven(assuming that each of the seven operations has a work complexity of 1) as if one were to for instance add eight number together it would take seven plus-operations. Meanwhile, as the algorithm was divided into a tree-like structure, it has a step at each level of the tree, thereby giving a total of three steps (It should also be noted that there is still seven plus operations performed, however, at each step the plus operations can be performed independent of each other).
 
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.6\textwidth]{figs/intro/step_work.png}
+		\includegraphics[width=0.6\textwidth]{figs/intro/step_n_work.png}
 	}
-	\caption{Step and work complexity example.}
+	\caption{Step complexity example.}
 	\label{fig:stepnwork}
 \end{figure}
 
