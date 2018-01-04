@@ -13,6 +13,7 @@
 \usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage{cleveref}
+\usepackage{adjustbox}
 %\usepackage{oz} % conflicts with siunitx
 \usepackage{float}
 \usepackage{titlesec}
@@ -323,10 +324,6 @@
 		\subsection{Merge Sort}
 		\label{sec:al_sort_merge}
 		\input{content/merge_sort.tex}
-		
-		\subsection{Oblivious Sort}
-		\label{sec:al_sort_obli}
-		\input{content/oblivious_sort.tex}
 	
 		\subsection{Radix Sort}
 		\label{sec:al_sort_radix}
@@ -373,21 +370,32 @@
 	\input{content/graph.tex}
 	
 	\section{Exercises}
-		\input{content/exercises-intro.tex}
+	\label{sec:exercises}
+	\input{content/exercises-intro.tex}
 	
 		\subsection{Exercise 1}
+		\label{sec:exercise1}
+		\input{content/exercise1.tex}
+		
 		\subsection{Exercise 2}
+		\label{sec:exercise2}
+		\input{content/exercise2.tex}
 		
 		\subsection{Exercise 3}
+		\label{sec:exercise3}
 		\input{content/exercise3.tex}
 		
 		\subsection{Exercise 4}
+		\label{sec:exercise4}
 		\input{content/exercise4.tex}
 		
 		\subsection{Exercise 5}
+		\label{sec:exercise5}
 		
 		\subsection{Exercise 6}
-	
+		\label{sec:exercise6}
+		\input{content/exercise6.tex}
+		
 \chapter{CUDA Frameworks and Libraries}
 \label{ch-libraries}
 \input{content/libraries.tex}

@@ -1,57 +1,59 @@
-One of the most used patterns in parallel computing is the reduction. The reduction combines all elements in an array to a single element using an reduction operator. This can for example be used to calculate the sum or product of an array. In order for the reduction to happen the reduction operator must be both binary and associative. Binary means that the operator is two-to-one, combining two element to one. Associative means that the order of which operations are performed does not effect the result. So for any operator $\oplus$ \cref{eq:al_associative} must hold.
+One of the most used patterns in parallel computing is the reduction. The reduction combines all elements in an array to a single element using an reduction operator. This can for example be used to calculate the sum or product of an array. In order for the reduction to happen the reduction operator must be both binary and associative. Binary means that the operator is two-to-one, combining two element to one. Associative means that the order of which operations are performed does not effect the result which can be mathematical expressed as \cref{def:reduce_associative}.
 
-\begin{equation} 
-\label{eq:al_associative}
-	(a \oplus b) \oplus c = a \oplus (b \oplus c)
-\end{equation}
+\begin{definition} 
+\label{def:reduce_associative}
+\textit{For an operator $\oplus$ to be associative the following statement must be true}
+\begin{center}
+	$(a \oplus b) \oplus c = a \oplus (b \oplus c).$
+\end{center}
+\end{definition}
 
-Addition and multiplication operators are associative while subtraction and division is not. A visual representation of a serial reduction is seen on \cref{fig:reduce_serial}. 
+\noindent Addition and multiplication operators are associative while subtraction and division is not. The reduction can also be formally defined, which is accordingly to Blelloch in \cite{BlellochTR90}, as seen in \cref{def:reduce}.
+
+\begin{definition} 
+	\label{def:reduce}
+	\textit{The reduction operation takes a binary associative operator $\oplus$ with identity $\mathcal{I}$, and an ordered set}
+	\begin{center}
+		$[a_0, a_1,...,a_{n-1}]$ 
+	\end{center}
+	\textit{of $n$ elements, and returns the value}
+	\begin{center}
+		$a_0 \oplus a_1 \oplus ... \oplus a_{n-1}.$
+	\end{center}
+\end{definition}
+\begin{example}
+	\textit{For the binary associative operator $+$ and the ordered set}
+	\begin{center}
+		$[1,2,3,4,5,6,7,8]$ 
+	\end{center}
+	\textit{the return is}
+	\begin{center}
+		$36$
+	\end{center}
+	\end{example}
+
+A visual representation of a serial reduction is seen on \cref{fig:reduce_serial}. 
 
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.4\textwidth]{figs/algorithm/reduce_serial.jpg}}
-	\caption{TBD}
+		\includegraphics[width=0.5\textwidth]{figs/algorithm/reduce_serial.png}}
+	\caption{Visual representation of the serial implementation of the reduction algorithm. The orange squares represent data elements, while the blue represent $\oplus$ operations}
 	\label{fig:reduce_serial}
 \end{figure}
 
-Each operator operation in the serial implementation is data depend, which creates a chain of dependencies. The serial reduction is common for single core system and is commonly implemented using a loop. The step and work complexity for the serial reduction is O(n). Mathematical a serial reduction computing the sum of 4 elements can be expressed as \cref{eq:al_reduce_serial}
-
-\begin{equation}
-\label{eq:al_reduce_serial}
-\Sigma(A,...,D) = (((A + B) + C) + D) 
-\end{equation} 
-
-Because of the data dependency in the serial reduction its operations cannot execute in parallel. A parallel reduction based on a binary tree is seen on \cref{fig:reduce_parallel}, here several of the operations can executed in parallel, thereby reducing the step complexity of the algorithm. 
+Each operator operation in the serial implementation is data depend, which creates a chain of dependencies. The serial reduction is common for single core system and is commonly implemented using a loop. The step and work complexity for the serial reduction is $\mathcal{O}(n)$. Because of the data dependency in the serial reduction its operations cannot execute in parallel. A parallel reduction based on a binary tree is seen on \cref{fig:reduce_parallel}, here several of the operations can executed in parallel, thereby reducing the step complexity of the algorithm. 
 
 \begin{figure}[ht]
 	\centering
-	\begin{subfigure}{.5\textwidth}
-		\centering
-			\fbox{
-			\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_parallel.jpg}}
-		\caption{TBD}
-		\label{fig:reduce_parallel}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\fbox{
-			\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_parallel_example.jpg}}
-		\caption{TBD}
-		\label{fig:reduce_parallel_example}
-	\end{subfigure}
-	\caption{TBD}
-	\label{fig:reduce_parallel_fig}
+	\fbox{
+		\includegraphics[width=0.6\textwidth]{figs/algorithm/reduce_parallel.png}}
+	\caption{Visual representation of the parallel implementation of the reduction algorithm. The orange squares represent data elements, while the blue represent $\oplus$ operations}
+	\label{fig:reduce_parallel}
 \end{figure}
 
-The binary tree parallel reduction has a work complexity of O(n) and a step complexity of O(log n), an is thereby step efficient. Mathematical the parallel reduction computing the sum if 4 elements can be expressed as \cref{eq:al_reduce_parallel}: 
-
-\begin{equation}
-\label{eq:al_reduce_parallel}
-\Sigma(A,...,D) = ((A+B)+(C+D))
-\end{equation}
-
-The amount of data dependency is reduced compared to \cref{eq:al_reduce_serial}, making it more suitable for parallel execution. An example of array summation using \cref{fig:reduce_parallel} is seen on \cref{fig:reduce_parallel_example}. A simple CUDA implementation of a reduction algorithm is seen in lst. \ref{lst:reduce_kernel}:
+The binary tree parallel reduction has a work complexity of $\mathcal{O}(n)$ and a step complexity of $\mathcal{O}(log ~ n)$, an is thereby step efficient. 
+The amount of data dependency is reduced compared to \cref{eq:al_reduce_serial}, making it more suitable for parallel execution. A simple CUDA implementation of a reduction algorithm is seen in listing \ref{lst:reduce_kernel}:
 
 \begin{lstlisting}[language=C,caption={TBD},label=lst:reduce_kernel]
 __global__ void reduce_kernel(float * d_out, float * d_in, int size)
@@ -80,8 +82,8 @@ The reduction implementation uses the individual thread ids to index in the inpu
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_combine.jpg}}
-	\caption{TBD}
+		\includegraphics[width=0.9\textwidth]{figs/algorithm/reduce_combine.png}}
+	\caption{Reduction using a reductions per thread block}
 	\label{fig:al_reduce_combine}
 \end{figure}
 

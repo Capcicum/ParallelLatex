@@ -23,10 +23,9 @@ Each of the SFUs also contains four floating-point multipliers that can offer ex
 The Register File runs at the same speed as the SP units, providing a minimum wait time on the register memory. 
 Instead of having a separate register dedicated to a single SP core, all SPs of a SM accesses the Register File, where registers are installed to be used by the threads of a SM.
 The data stored in the Register File is only visible to the thread which wrote it, and is deleted when the lifetime of the thread ends.
-Further information regarding the Register File can be found in \cref{sec-hw-memory-model}.
 \\\\	
 \textbf{Shared Memory -} The Shared Memory is used to share data between threads running in the same block within the SM.
-Where the data stored in the Register File is only accessible by a single thread, the data stored in the Shared Memory can be accessed by multiple threads, which is further described in \cref{sec-hw-memory-model}.
+Where the data stored in the Register File is only accessible by a single thread, the data stored in the Shared Memory can be accessed by multiple threads.
 \\\\		
 \textbf{Texture Cache -} The Texture Cache is a read-only cache used to access texture memory, allocated in the Global Memory.
 Texture memory is useful for data containing interpolation, which for example could be 2D or 3D lookup tables \cite{Cook2008}.
@@ -34,12 +33,12 @@ As this data is mostly used for graphical purposes, the texture cache will not b
 \\\\	
 \textbf{Constant Cache -} Just as the Texture Cache, the Constant Cache is read-only.
 Constant Cache is used for commonly used data, which is moved to the constant memory from the global memory.
-This is done for the purpose of increasing performance in comparison to long latencies in conjunction with global memory accesses, which is further described in \cref{sec-hw-memory-model}.
+This is done for the purpose of increasing performance in comparison to long latencies in conjunction with global memory accesses.
 \\\\	
 \textbf{L1 Cache -} As the two other caches mentioned above, the L1 Cache is used by the SM to access frequently used data. 
 Depending on the architecture version, the memory size of the L1 Cache is either fixed or configurable.
 In case of a configurable L1 Cache size, the L1 shares a combined memory space with the Shared Memory.
-This combined memory is then configurable, allowing for hardware that can be adjusted depending on the application needs. Like Constant Cache, the L1 Cache is further covered in \cref{sec-hw-memory-model}.
+This combined memory is then configurable, allowing for hardware that can be adjusted depending on the application needs.
 \\\\
 \textbf{Warp Scheduler -} The Warp Scheduler is used schedule the threads within a SM, this is further described in \cref{sec-hw-warps-threads}.
 \\\\	

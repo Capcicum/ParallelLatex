@@ -1,6 +1,6 @@
-Their are several different implementation strategies for parallel histogram algorithms. One possible strategy, often called the naive implementation, work by spawning a thread for each data element. Each thread, associated with one data element, computes the correct bin and increments the corresponding output array element. Without concurrency control race conditions will arise, because two or more threads may try to increment the same output array element at the same time. The concurrency control for the naive histogram implementation is the AtomicAdd function.
+Their are several different implementation strategies for parallel histogram algorithms. One possible strategy, often called the naive implementation, work by spawning a thread for each data element. Each thread, associated with one data element, computes the correct bin and increments the corresponding output array element. Without concurrency control race conditions will arise, because two or more threads may try to increment the same output array element at the same time. The concurrency control for the naive histogram implementation is the atomicAdd function.
 
-\begin{lstlisting}[language=C,caption={TBD},label=lst:histogram_atomicadd]
+\begin{lstlisting}[language=C,caption={Pseudo code for naive implementation of histogram using atomics},label=lst:histogram_atomicadd]
 __global__ void naive_histo_kernel(int *d_bins, const int *d_in, const int BIN_COUNT)
 {
 	int myId = threadIdx.x;

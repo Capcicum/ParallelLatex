@@ -3,11 +3,9 @@ One way of implementing a parallel scan is with the algorithm developed by Hilli
 \begin{figure}[ht]
 	\centering
 	\fbox{
-		\includegraphics[width=0.4\textwidth]{figs/algorithm/scan_hillis_steele.jpg}}
-	\caption{TBD}
+		\includegraphics[width=0.6\textwidth]{figs/algorithm/scan_hillis_steele.png}}
+	\caption{Naive inclusive scan developed by Hillis and Steele}
 	\label{fig:scan_hillis_steele}
 \end{figure}
 
-The algorithm iterates through $log n$ steps, where n is the number of array elements to sum. At each step each element is combined through the binary associative operator with its right $ 2^k $ neighbour, where k is the step depth starting at zero. The Hillis/Steele is natively a inclusive scan but can be implemented as an exclusive scan e.g. by shifting. The step complexity of the Hillis/Stelle scan is $O(log n)$, thereby being step efficient. The work complexity on the other hand is $O(n log n)$, making it work inefficient. The algorithm assumes that there is as many processors in the system as there is data elements to be combined, this is not always the case. For small array sizes the Hillis/Steele scan is on the other hand efficient, as it will keep the processors busy, and create the result in few steps. 
-
-[TODO: overvej kode]  
+The algorithm iterates through $log~n$ steps, where $n$ is the number of array elements to sum. At each step each element is combined through the binary associative operator with its right $ 2^k $ neighbour, where $k$ is the step depth starting at zero. The Hillis/Steele is natively a inclusive scan but can be implemented as an exclusive scan e.g. by shifting. The step complexity of the Hillis/Steele scan is $\mathcal{O}(log~n)$, thereby being step efficient. The work complexity on the other hand is $\mathcal{O}(n~ log~n)$, making it work inefficient. The algorithm assumes that there is as many processors in the system as there is data elements to be combined, this is not always the case. For small array sizes the Hillis/Steele scan is efficient, as it will keep the processors busy, and create the result in few steps. 
