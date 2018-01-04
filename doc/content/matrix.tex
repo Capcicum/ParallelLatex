@@ -18,7 +18,7 @@ The CSR format requires three vectors that together represents the sparse matrix
 The three vectors are in this notation named as $V_v$, $C_v$ and $R_v$.
 The first vector is called the \textit{value} vector.
 This vector simply represent all non-zero data.
-In the case of matrix \ref{mat-dense} the value vector, $V_v$, is
+In the case of the matrix shown in \ref{mat-dense} the value vector, $V_v$, is
 \begin{gather}
 	V_v =
 	\begin{bmatrix}
@@ -34,7 +34,7 @@ In the example from matrix \ref{mat-dense} $C_v$ becomes
 	\end{bmatrix}
 	\label{mat-vvector}
 \end{gather}
-since element \textit{a} is in column one, element \textit{b} is in column two and so on.
+since element \textit{a} is in column one, element \textit{b} is in column three and so on.
 The final vector, $R_v$, indicates which element start each row.
 This vector is also called the \textit{row-pointer}.
 In the example from matrix \ref{mat-vvector} the row-pointer is
@@ -84,7 +84,7 @@ There are 4 steps to compute this using the CSR format for a sparse matrix repre
 	\captionof{table}{Steps to SpMv}
 	\label{alg-spmv}
 \end{center}
-An example of doing a actual matrix multiplication as seen in \autoref{mat-ex} using a CSR format and the steps described in \autoref{alg-spmv} is seen in \autoref{alg-mulex}.
+An example of doing an actual matrix multiplication (as seen in \autoref{mat-ex} using a CSR format and the steps described in \autoref{alg-spmv}) is seen in \autoref{alg-mulex}.
 \begin{center}
 	\fbox{
 		\begin{tabular}{p{40pt} p{220pt}}
@@ -107,10 +107,10 @@ An example of doing a actual matrix multiplication as seen in \autoref{mat-ex} u
 \end{center}
 The first step makes a segmented representation of the value vector where each segment represents one row of the sparse matrix.
 Note that each segment is found by using $R_v$ and is represented by a vertical line ("$|$").
-In the second step each input in the $C_v$ indicates which element it need to be multiplied with.
+In the second step each input in the $C_v$ indicates which element it needs to be multiplied with.
 In step three, pairwise multiplications are done.
 For this the \textit{map} pattern is applied as described in \autoref{sec-map}.
-In the final step each partial product within a segment need to be added up by doing a exclusive segmented sum scan as described in \autoref{sec:al_scan}.
+In the final step each partial product within a segment needs to be added up by doing a exclusive segmented sum scan as described in \autoref{sec:al_scan}.
 Using SpMv exploits a lot a data parallelism and is also efficient since its computations are based on sparse matrices.
 
 Computing SpMv in parallel can be done by assigning a row or an element to each thread.

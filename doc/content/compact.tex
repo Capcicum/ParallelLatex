@@ -14,7 +14,7 @@ Furthermore, \textit{O} can have a sparse or dense representation.
 For a sparse output each $f_{P}(S)\equiv \mathtt{true}$ is assigned to its same position in \textit{O}, while $f_{P}(S)\equiv \mathtt{false}$ are assigned as \textit{none} (an empty element or some sort of \textit{null} value).
 On the other hand, for a dense output $\mathtt{O}=\{s\ |\ s\in f_{P}(S)\equiv \mathtt{true}\}$.
 
-As an example say we have the following input and predicate function
+\noindent As an example say we have the following input and predicate function
 \begin{align}
 	       S &= \{0, 8, 26, 12, 24, 50\}, \\
 	f_{P}(S) &= \{s\ \mathtt{mod}\ 4 = 0\ |\ s\in S\}
@@ -29,7 +29,7 @@ Then the output of such a compact operation results in
 	O_{dense} &= \{0, 8, 12, 24\}
 \end{align}
 
-In parallel it is more efficient to use the dense compact algorithm since this results in only spawning threads that actually have a computational task to do.
+\noindent In parallel it is more efficient to use the dense compact algorithm since this results in only spawning threads that actually have a computational task to do.
 Implementing the dense compact algorithm in parallel is done by using scatter adresses.
 Scattering addresses is done by using the scatter pattern where each input is scattered to another place in memory as described in \autoref{sec-scatter}.
 For example if the predicate function for some \textit{S} returns the following set
@@ -38,7 +38,7 @@ For example if the predicate function for some \textit{S} returns the following 
 \end{gather}
 the desirable indexes in the scatter output is the set $\{0, -, -, 1, 2, -, 3, -\}$, where "-" are "don't care".
 To compute the scatter adresses can be done by doing an exclusive scan as described in \autoref{sec:al_scan}.
-First the result of $f_{P}(S)$ is translated into zeros and ones using a such that
+First the result of $f_{P}(S)$ is translated into zeros and ones such that
 \begin{gather}
 	f_{P}(S_{rand})_{new} = \{1, 0, 0, 1, 1, 0, 1, 0\}
 \end{gather}
@@ -61,5 +61,4 @@ The compact algorithm is summarized into following steps:
 	\label{alg-compact}
 \end{center}
 
-Implementation - compare sparse vs dense
-%TODO: make implementation of both
+\noindent Compact is most useful when it is desired to compact away a large number of elements and when the computation on each remaining element is expensive.

@@ -8,7 +8,7 @@ Since the desired computation is described in a high abstraction level, Thrust w
 Thrust is basically built upon three building blocks which are vectors, algorithms and iterators.
 There are two types of vectors in Thrust: \textit{host\_vector} and \textit{device\_vector}.
 Host vectors are stored in host memory while device vectors are stored in device memory.
-This is makes allocation and copying between host and device relatively straight forward.
+This makes allocation and copying between host and device relatively straight forward.
 An example of this is seen in \autoref{lst:thrust-vec}.
 \begin{lstlisting}[language=C,caption={Vectors in Thrust},label=lst:thrust-vec]
 #include <thrust/host_vector.h> 
@@ -47,18 +47,17 @@ int data[6] = {1, 0, 2, 2, 1, 3};
 thrust::exclusive_scan(data, data + 6, data); // data becomes {0, 1, 1, 3, 5, 6}
 ...
 \end{lstlisting}
-This simplifies a lot TODO REF TO CODE EXAMPLE HERE IF TIME.
-
+This simplifies usage of exclusive scan rather than implementing it from scratch.
 Using the Thrust library also enables the usage of fairly complex iterators.
 Some of the iterators in Thrust are:
 \begin{description}
 	\item[Constant iterator] The \textit{constant\_iterator} returns the same value whenever it is accessed.
 	\item[Counting iterator] The \textit{counting\_iterator} increments its value by one with respect to the initialization value.
-	\item[Permutation iterator] The \textit{make\_permutation\_iterator} allows to fuse for example gather and scatter operations into a single iterator. This is a rather complex subject so it will not be discussed in depth in this report.
+	\item[Permutation iterator] The \textit{make\_permutation\_iterator} allows to fuse for example gather and scatter operations into a single iterator. This is a rather complex subject so it will not be discussed in depth here.
 	\item[Zip iterator] The \textit{zip\_iterator} takes multiple input sequences and returns a sequence of tuples. It is rather useful if for instance one would like to iterate over two distinct data types in a single loop.
 \end{description}
 All operators in Thrust are accessed like arrays.
 \\\\
 This was only an introduction to Thrust and which features there are that can ease CUDA application development, where many of the core CUDA details are abstracted away.
 This of course makes it easier and faster to prototype GPU applications, but at the cost of total control of the GPU.
-For more info of Thrust see \url{http://docs.nvidia.com/cuda/thrust/index.html}. (should this be a ref in stead?)
+For more information of Thrust please refer the documentation. \url{http://docs.nvidia.com/cuda/thrust/index.html}.
