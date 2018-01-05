@@ -1,4 +1,4 @@
-The task it self in exercise 5 is quite simple, one simply has to code a histogram kernel. The main program provided, generates 10.240.000 random distributed numbers, with a mean ~500, and a standard divination of 100. Thus the goal is to create a histogram kernel, to create a histogram of the values, using principles for CUDA optimization to perform the task as fast as possible.\\
+The task itself in exercise 5 is quite simple, one simply has to code a histogram kernel. The main program provided, generates 10.240.000 random distributed numbers, with a mean ~500, and a standard divination of 100. Thus the goal is to create a histogram kernel, to create a histogram of the values, using principles for CUDA optimization to perform the task as fast as possible.\\
 
 The first approach to solve this is, to simply create a histogram kernel, which can do the histogram, and ignore optimization at all.
 
@@ -14,7 +14,7 @@ void yourHisto(unsigned int* const vals, //INPUT
 \end{lstlisting}
 
 Running the above histogram kernel on the 10.240.000 random numbers takes, 4.0 ms on a computer, with a Nvidia GTX 980TI graphic card.\\ 
-Looking at the code, it is however easy to identify some possible optimization steps. Applying the more memory levels, in this case shared memory, should significantly lower the run time of the kernel.\\
+Looking at the code, it is, however, easy to identify some possible optimization steps. Applying the more memory levels, in this case, shared memory should significantly lower the run time of the kernel.\\
  
  \begin{lstlisting}[language=C,caption={Introducing shared memory into the histogram kernel},label=lst:histogram_kernel2]
 void yourHisto(unsigned int* const vals, //INPUT
@@ -29,5 +29,5 @@ void yourHisto(unsigned int* const vals, //INPUT
 }
  \end{lstlisting}
  
- As can be seen in listing \ref{lst:histogram_kernel2}, a shared memory block is introduced, allowing the threads within a block to access it. While the kernel still uses atomic to write to this memory, it should still be significantly faster. To ensure that the thread block is finished before the shared memory is added to the global, \texttt{syncthreads} is used. Each thread is also performing 1000 more operations, in that a internel for loop is introduced.\\
- Running the kernel again, now reduces the run time to 2.4 ms, on the same computer as before. further tweaking the number of iterations in the internel loop yields far better results. The best configuration, with the specific hardware, is around a 100 iterations per thread in the internel loop, lowering the runtime of the kernel to 1.1 ms.
+ As can be seen in listing \ref{lst:histogram_kernel2}, a shared memory block is introduced, allowing the threads within a block to access it. While the kernel still uses atomic to write to this memory, it should still be significantly faster. To ensure that the thread block is finished before the shared memory is added to the global, \texttt{syncthreads} is used. Each thread is also performing 1000 more operations, in that an internal loop is introduced. Using an offset in each iteration ensures that threads within a thread block, which is on the same iteration, still accesses memory coalesced\\
+Running the kernel again, now reduces the run time to 2.4 ms, on the same computer as before. further tweaking the number of iterations in the internal loop yields far better results. The best configuration, with the specific hardware, is ~100 iterations per thread in the internal loop, lowering the runtime of the kernel to 1.1 ms.\\
