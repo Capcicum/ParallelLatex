@@ -1,0 +1,142 @@
+\begin{lstlisting}[language=C,caption={Reduction kernel},label=lst:reduce_kernel]
+__global__ void reduce_kernel(int * d_out, int * d_in)
+{
+    extern __shared__ int sdata[];
+    // each thread loads one element from global to shared mem
+    // perform first level of reduction,
+    // reading from global memory, writing to shared memory
+    unsigned int tid = threadIdx.x;
+    unsigned int i = blockIdx.x*(blockDim.x * 2) + threadIdx.x;
+    sdata[tid] = d_in[i] + d_in[i + blockDim.x];
+    __syncthreads();
+    // do reduction in shared mem
+    for (unsigned int s = blockDim.x / 2; s>0; s >>= 1)
+    {
+        if (tid < s)
+        {
+		    sdata[tid] += sdata[tid + s];
+        }
+        __syncthreads();
+    }
+    // write result for this block to global mem
+    if (tid == 0)
+    {
+	    d_out[blockIdx.x] = sdata[0];
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C,caption={Hillis Steele scan kernel},label=lst:hillis_steele_scan_kernel]
+__global__ void scan_kernel(int *d_out, int *d_in, int size)
+{
+    extern __shared__ int temp[]; // allocated on invocation
+    int thid = threadIdx.x;
+
+    // load input into shared memory.
+    // This is exclusive scan, so shift right by one and set first elt to 0
+    temp[thid] = (thid > 0) ? d_in[thid - 1] : 0;
+    __syncthreads();
+    for (int offset = 1; offset < size; offset *= 2)
+    {
+        if (thid >= offset)
+            temp[thid] += temp[thid - offset];
+        else
+            temp[thid] = temp[ thid];
+        __syncthreads();
+    }
+    d_out[thid] = temp[thid]; // write output
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C,caption={Blelloch scan kernel},label=lst:blelloch_scan_kernel]
+__global__ void scan_kernel(int *d_out, int *d_in, int size)
+{
+    extern __shared__ int temp[];  // allocated on invocation
+    int thid = threadIdx.x;
+    int offset = 1;
+
+    temp[2 * thid] = d_in[2 * thid]; // load input into shared memory
+    temp[2 * thid + 1] = d_in[2 * thid + 1];
+    __syncthreads();
+    for (int d = size >> 1; d > 0; d >>= 1)
+    {
+        // build sum in place up the tree
+        __syncthreads();
+        if (thid < d)
+        {
+            int ai = offset*(2 * thid + 1) - 1;
+            int bi = offset*(2 * thid + 2) - 1;
+            temp[bi] += temp[ai];
+        }
+        offset *= 2;
+    }
+
+    if (thid == 0) { temp[size - 1] = 0; } // clear the last element
+    __syncthreads();
+
+    for (int d = 1; d < size; d *= 2) // traverse down tree & build scan
+    {
+        offset >>= 1;
+        __syncthreads();
+        if (thid < d)
+        {
+            int ai = offset*(2 * thid + 1) - 1;
+            int bi = offset*(2 * thid + 2) - 1;
+            int t = temp[ai];
+            temp[ai] = temp[bi];
+            temp[bi] += t;
+        }
+    }
+    __syncthreads();
+    d_out[2 * thid] = temp[2 * thid]; // write results to device memory
+    d_out[2 * thid + 1] = temp[2 * thid + 1];
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C,caption={Naive histogram kernel},label=lst:naive_histogram_kernel]
+__global__ void naive_histo_kernel(int *d_bins, const int *d_in, const int BIN_COUNT)
+{
+    int myId = threadIdx.x;
+    int myItem = d_in[myId];
+    int myBin = COMPUTE_BIN(myItem);
+    atomicAdd(&(d_bins[myBin]), 1);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=C,caption={Histogram by privatization kernel },label=lst:histogram_by_privatization_kernel]
+__global__ void privat_histo_kernel( int* d_out, int* d_in, const int bins, int size)
+{
+    extern __shared__ int subhist[];
+    int tid = threadIdx.x;
+    int gid = threadIdx.x + blockIdx.x * blockDim.x;
+
+    //Initialization
+    while (tid < bins)
+    {
+        subhist[tid] = 0;
+        tid += blockDim.x;
+    }
+
+    __syncthreads();
+    // Calculate private histogram
+    int stride = blockDim.x *gridDim.x;
+    int b;
+    int* current = d_in + gid;
+    while (current < d_in + size)
+    {
+        b = COMPUTE_BIN(*current);
+        atomicAdd(&(subhist[b]), 1);
+        current += stride;
+    }
+
+    __syncthreads();
+    
+    //Update global histogram
+    tid = threadIdx.x;
+    if (tid < bins)
+    {
+        atomicAdd(&(d_out[tid]), subhist[tid]);
+        tid += blockDim.x;
+    }
+}
+\end{lstlisting}
