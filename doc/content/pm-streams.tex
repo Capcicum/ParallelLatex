@@ -1,10 +1,11 @@
-They way that the CPU communicates with the GPU is with commands.
+The way that the CPU communicates with the GPU is with commands.
 This can for instance be memory transfers and kernel launches.
 These commands are sent via streams, either implicitly or explicitly.
-A stream is a virtual work queue (where the operations are executed in otder) used for asynchronous operations so that the CPU can operate concurrently with the GPU.
+A stream is a virtual work queue (where the operations are executed in order) used for asynchronous operations so that the CPU can operate concurrently with the GPU.
 It is possible to have multiple streams and there can be a lot of reasons and benefits for this.
 It is possible to perform memory copies concurrently with kernel executions.
-To support this, the "copy engine" can perform a DMA transfer on the PCI-e bus while the SM's are executing a kernel.
+To support this, the "copy engine" can perform a DMA (Direct Memory Access) transfer on the PCI-e bus while the SM's are executing a kernel.
+Most GPU's only have a single DMA instance, and memory transfers are therefore often executed sequentially in a pipelined manner.
 Kernel launches are per definition asynchronous, but memory transfers can be either synchronous or asynchronous.
 To make a memory transfer asynchronous, a different set of \cuda{} functions must be used (suffixed with a "Async").
 An example of asynchronous kernel launches and memory transfers can be seen in \autoref{lst:stream-default-usage}.
@@ -17,7 +18,7 @@ int main(int argc, char ** argv) {
 	cudaMemcpyAsync( ... )
 	example_kernel2<<< ... >>> }
 \end{lstlisting}
-If one would like to use different streams, can be de declared and used as seen in \autoref{lst:stream-cre-des}.
+If one would like to use different streams, they can be de declared and used as seen in \autoref{lst:stream-cre-des}.
 From here, the entire life-cycle of a \cuda{} stream can be seen.
 The stream is simply used by passing the \cuda{} struct to the async memory transfer function and the kernel launch.
 \begin{lstlisting}[language=C++,caption={Stream creation, usage and destruction},label=lst:stream-cre-des]
@@ -54,5 +55,5 @@ There are different ways to do this, where two scenarios are described below and
 	\caption{Advantage of using streams}
 	\label{fig:streams-advantage}
 \end{figure}
-To sum up, it can generally be be advantageous to use stream to overlap memory and computation and help fill GPU with smaller kernels.
+To sum up, it can generally be advantageous to use streams to concurrently perform memory transfers and computation (kernel execution), and also to automatically schedule kernel executions on the GPU in a sequentially manner.
 %caveats --> streams and events

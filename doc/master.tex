@@ -421,16 +421,12 @@
 	\label{sec-others}
 	\input{content/others.tex}
 
-% citation test
-\cite{McCool2012}
-\cite{udacity:parallel}
-
 \bibliographystyle{plain}
 \bibliography{bib}
 
 \newpage
 \appendix
-\chapter{Reading Plan}
-	\input{content/reading-plan.tex}
+\includepdf[pages=1,offset=0 -1.5cm, scale=0.9, pagecommand=\chapter{Reading Plan}]{figs/appendix/readingplan.pdf}
+\includepdf[pages=2,scale=0.9, pagecommand={}]{figs/appendix/readingplan.pdf}
 
 \end{document}

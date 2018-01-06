@@ -1,9 +1,9 @@
 This exercise focuses on red eye removal from a picture (in this case, the picture on \autoref{fig:ex4-before}).
-The specified sequence of steps is to start out by computing a score for each pixel that estimates the likelihood of that pixel belonging to a read eye (high score more likely).
+The specified sequence of steps is to start out by computing a score for each pixel that estimates the likelihood of that pixel belonging to a read eye (higher score is more likely).
 The score is known as normalized cross-correlation and is expressed naturally as a stencil operation.
 This score has already been computed in the exercise and the next step is therefore to sort these scores in ascending order (likelihood) effectively.
 The final step is to reduce the redness of the highest scoring pixels and this can be performed using simple map operations.
-As stencil and map operations have already been worked on in previous exercise, the focus of this exercise is to perform the sorting efficiently.
+As stencil and map operations have already been worked on in previous exercises, the focus of this exercise is to perform the sorting efficiently.
 The result of the red eye removal can be seen in \autoref{fig:ex4-after}.
 \begin{figure}[ht]
 	\centering
@@ -27,7 +27,7 @@ The result of the red eye removal can be seen in \autoref{fig:ex4-after}.
 	\label{fig:ex4}
 \end{figure}
 
-The actual exercise is to implement a parallel radix sort as described in \autoref{sec:al_sort_radix}.
+\noindent The actual exercise is to implement a parallel radix sort as described in \autoref{sec:al_sort_radix}.
 To compute the sort, a lot of work has to be done (the actual source code can be seen in \cite{exercises}.)
 The following sequence of techniques are performed for every bit of the values to sort (32bit values in this exercise).
 The steps are visualized in \autoref{fig:ex4-radix-sort}.
@@ -44,7 +44,7 @@ The steps are visualized in \autoref{fig:ex4-radix-sort}.
 	\item[\textbf{Step 3}]
 	An exclusive prefix sum scan is performed on the elements stored from \textbf{Step1} to generate the offset value which should be added to the elements of the segmented scan.
 	\item[\textbf{Step 4}]
-	A histogram of the number of ones and zeros are generated.
+	A histogram of the number of ones and zeros is generated.
 	\item[\textbf{Step 5}]
 	An exclusive prefix sum scan is performed over the histogram.
 	This is to generate the scattering offset to where the zeros and ones should start in the resulting vector.

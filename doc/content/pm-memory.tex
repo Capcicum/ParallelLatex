@@ -9,7 +9,7 @@ int main(int argc, char ** argv) {
 	example<<<blocks, threads>>>(d_in);
 	cudaMemcpy(h_in, d_in, numElems * sizeof(unsigned int), cudaMemcpyDeviceToHost) }
 \end{lstlisting}
-Inside a kernel, a thread can access different types of device memory (local, shared and global), as described in \autoref{mortens-memory-hierarchy}.
+Inside a kernel, a thread can access different types of device memory (local, shared and global), as described in \autoref{sec-hw-memory-model}.
 An example of accessing local and global memory can be seen in \autoref{lst:local-global-mem-acc}.
 Local memory is everything allocated in the kernel, and can be thought of a variables allocated on the "stack". In the example, a local memory access is performed every time "myId" is accessed.
 Global memory can be done by accessing raw device pointers passed to the kernel, as seen in the example by accessing "d\_out" and "d\_in".

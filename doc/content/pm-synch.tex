@@ -1,4 +1,4 @@
-As threads are executed in parallel, there can be a need for synchronization between the threads.
+As threads are executed in parallel, there can be a need for synchronization between threads.
 This can for instance be to ensure that all threads have moved their data to shared memory before starting to access it.
 Synchronization of threads in a block can be done with the intrinsics call \textit{\_\_synchthreads()}, which acts as a barrier (as show in \autoref{lst:shared-mem-acc}).
 The intrinsic must be used with caution, as all threads in the block wait for every thread to reach the synchronization point, and if one or more thread(s) have more work to do than the others, a lot of threads will remain idle until they done.
@@ -6,9 +6,9 @@ The intrinsic must be used with caution, as all threads in the block wait for ev
 \subsection{Data Access}
 Another synchronization mechanism that can be necessary to use is mutual exclusive data access.
 This can be necessary if multiple threads for instance read and write to the same memory location.
-To handle the issue, there multiple \textit{atomic} functions that performs a read-modify-write atomic operation on data residing in either global or shared memory.
+To handle this issue, there are multiple \textit{atomic} functions that performs a read-modify-write atomic operation on data residing in either global or shared memory.
 Examples are \textit{atomicAdd()} and \textit{atomicAnd()} \cite{cuda:programmingguide}.
-Using atomic can give a performance penalty, as threads trying to access a memory location that is already being atomically modified must remain idle until the threads has finished its modification.
+Using atomic can give a performance penalty, as threads trying to access a memory location that is already being atomically modified must remain idle until the thread has finished its modification.
 
 \subsection{Kernel and Stream Synchronization}
 A different kind of synchronization that can be specified is between kernel calls.

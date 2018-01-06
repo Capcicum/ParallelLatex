@@ -1,4 +1,4 @@
-In \cuda{} all synchronous operations returns an error code.
+In \cuda{}, all synchronous operations returns an error code.
 This error code can be checked with \textit{cudaPeekAtLastError()} or \textit{cudaGetLastError()}.
 It is a different story for asynchronous functions, as these cannot return the error code immediately, because they have not finished its execution when the function returns.
 The only way to retrieve the error code is to call \textit{cudaDeviceSynchronize()} right after the asynchronous function call.

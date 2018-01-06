@@ -34,10 +34,10 @@ The \textit{w} component is not relevant when converting to gray scale.
 The following steps are performed to solve the exercise.
 \begin{enumerate}
 	\item[\textbf{Step 0}]
-	Write a kernel that converts the pixels from RGB to gray scale.
+	\textit{Write a kernel that converts the pixels from RGB to gray scale}.
 	This can be done by generating a unique id for each thread, depending on the blockIdx, blockDim and threadIdx in both x and y which determines the pixel to convert.
-	When it has been generated, the pixel RGB value is simply converted using the formula above.
+	When the "global" thread id has been extracted, the pixel RGB value is simply converted using the formula above.
 	\item[\textbf{Step 1}]
-	Launch the kernel with a reasonable block and grid size.
+	\textit{Launch the kernel with a reasonable block and grid size}.
 	As the picture is relatively large, it could be beneficial to create the block size as $32\times32$ (1024 is the maximum number of threads in a block) threads and then a grid of blocks depending on the number of rows and columns of the image.
 \end{enumerate}

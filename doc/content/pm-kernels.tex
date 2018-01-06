@@ -8,7 +8,7 @@ The launch of a kernel is specified by "$kernel\_name<<< number\_of\_blocks, num
 Only a single kernel can be executed at a time.
 An example of a kernel and how it is being launched can be seen in \autoref{lst:kernel}.
 \begin{lstlisting}[language=C,caption={Kernel example},label=lst:kernel]
-__global__ void hello_world(float * d_out, float * d_in){
+__global__ void hello_world( void ){
 	print('hello world') }
 int main(int argc, char ** argv) {
 	hello_world<<<1, 100>>>(); }

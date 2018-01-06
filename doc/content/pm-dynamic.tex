@@ -25,6 +25,6 @@ An example can be seen in \autoref{fig:recursion-quicksort}
 	\label{fig:recursion-quicksort}
 \end{figure}
 
-Launching kernels from within other kernels can be beneficial in some applications, but there are also things to watch out for when using this technique in \cuda{}.
+\noindent Launching kernels from within other kernels can be beneficial in some applications, but there are also things to watch out for when using this technique in \cuda{}.
 Shared memory cannot be passed to a child kernel, so there is a performance penalty in having to copy data to global memory.
 One should also be aware that every thread is executing the same program/kernel, which means that every thread will launch child kernels.
