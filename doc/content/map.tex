@@ -13,7 +13,7 @@ This pattern assumes that each task is independent of others.
 In the this way there is a one-to-one correspondence between the input and output.
 Implementing the map pattern corresponds to that one thread will be executing each task in CUDA.
 An example is seen in \autoref{lst:map}.
-
+\FloatBarrier
 %TODO: probably move code examples to appendix or include in GitHub
 \begin{lstlisting}[language=C,caption={Squaring thread id using map pattern},label=lst:map]
 ...
