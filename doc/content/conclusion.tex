@@ -1,13 +1,19 @@
-This report is the concluding work of the reading course on the topic of parallel computing. The course was and introduction into parallel computing, supported through the CUDA coding framework. Through both the course and this report several important topic within parallel programming have been covered. Firstly, the important concept of parallelization in relation to serialization was covered. Included in the concept understanding is the approach to parallelizing code and the terms of latency, bandwidth and step \& work complexity.
+This report is the concluding work of the reading course on the topic of parallel computing. 
+The course was an introduction into parallel computing, supported through the CUDA coding framework. 
+Throughout the course and formulation of this report several important topics within parallel programming have been covered. 
+Firstly, the important concept of parallelization in relation to serialization was covered. 
+Included in the concept understanding is the approach to parallelizing code and the terms of latency, bandwidth and step \& work complexity.
 
-To understand the parallel coding , it is important to understand the underlaying hardware, making the parallelization possible. The current available GPUs architectures is the product of early evolution. An important principle in the parallel hardware understanding is the interaction and architecture between the CPU and GPU. The course and report discussed the important GPU hardware, which e.g. consist of the streaming processors, threads and warps. 
+To understand parallel coding, it is important to understand the underlaying hardware, making parallelization possible. 
+The current available GPU architectures are the product of early evolution. 
+An important principle in the parallel hardware understanding is the interaction and architecture between the CPU and GPU. 
+The course and report discussed the important GPU hardware components, which e.g. consist of the streaming processors, threads and warps. 
 
-When the hardware of the GPU was covered the programming model of the CUDA framework, was discussed. The crucial components included in the model, is kernels, threads memory, synchronization, streams error checking and dynamic parallelism. As important as the programming model is process of compiling and running the CUDA programs, which also was covered.
+When the hardware of the GPU was covered the programming model of the CUDA framework, was discussed. The crucial components included in the model are kernels, threads memory, synchronization, streams error checking and dynamic parallelism. 
+Furthermore, the process of compiling and running CUDA programs was also covered.
 
-In order to fully utilize the parallelization of the GPUs, different significant communication patterns was covered. These patterns was map, gather, scatter, transpose and different types of stencils. These discussed parallel communication patterns, was important to understand the more complex parallel algorithms. The algorithm discussed in this report is reduction, scan, histogram, sort, compact and allocate. 
+In order to fully utilize the parallelization of the GPUs, different significant communication patterns were covered. These patterns were map, gather, scatter, transpose and different types of stencils. These discussed parallel communication patterns, were important to understand more complex parallel algorithms. The algorithms discussed in this report are reduction, scan, histogram, sort, compact and allocate. 
 
-One of the main ideas of using parallel programming, is the efficiency improvement compared to conventional serial programming. To achieve this improvement the important topic of optimization was explained. Optimization was covered from general optimization through memory optimization and thread divergence. 
+One of the main ideas of using parallel programming, is the efficiency improvement compared to conventional serial programming. To achieve this improvement the important topic of optimization was explained. Optimization was covered from general optimization to memory optimization and thread divergence. 
 
-To understand the potential of parallel programming different application was discussed and explained, including sparse matrix/dense vector multiplication and graph theory. The material used in the course, had several CUDA programming exercises, which was solved and discussed. All the exercises was within the topic of image processing. Lastly this report presents and explains different CUDA libraries. 
-
-Overall this course and topic has been interesting, important and significant.    
+To understand the potential of parallel programming, different applications were discussed and explained, including sparse matrix/dense vector multiplication and graph theory. The material used in the course, had several CUDA programming exercises, which were solved and discussed. All the exercises were within the image processing domain. Lastly this report presents and explains different CUDA libraries. 
