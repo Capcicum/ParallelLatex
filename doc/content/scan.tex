@@ -1,4 +1,4 @@
-A common, simple and highly used building block for parallel algorithms is scan also know as all-prefix-sum. Scan calculates all partial reductions of a set, as defined by Blelloch \cite{BlellochTR90} in \cref{def:al_blelloch_scan}.
+A common, simple and highly used building block for parallel algorithms is scan, also know as all-prefix-sum. Scan calculates all partial reductions of a set, as defined by Blelloch \cite{BlellochTR90} in \cref{def:al_blelloch_scan}.
 
 \begin{definition}
 \label{def:al_blelloch_scan}
@@ -22,7 +22,7 @@ $[a_0, (a_0 \oplus a_1),...,{a_0 \oplus a_1 \oplus ... \oplus a_{a_n-1}}].$
 \end{center}
 \end{example}
 
-The scan, like the reduction in \cref{sec:al_reduction}, is using the binary associative operator, and can therefore be used for e.g. addition or multiplication. There is distinguished between two types of scan, the exclusive scan also know as prescan and the inclusive scan. The inclusive scan is defined as \cref{def:al_blelloch_scan} where as exclusive scan is defined accordingly to Blelloch \cite{BlellochTR90} as \cref{def:al_blelloch_prescan}:
+The scan, like the reduction in \cref{sec:al_reduction}, is using the binary associative operator, and can therefore be used for e.g. addition or multiplication. There is distinguished between two types of scan, the exclusive scan also know as prescan, and the inclusive scan. The inclusive scan is defined as \cref{def:al_blelloch_scan} whereas exclusive scan is defined accordingly to Blelloch \cite{BlellochTR90} as \cref{def:al_blelloch_prescan}:
 
 \begin{definition}
 	\label{def:al_blelloch_prescan}
@@ -46,7 +46,7 @@ The scan, like the reduction in \cref{sec:al_reduction}, is using the binary ass
 	\end{center}
 \end{example}
 
-Both types of scan can be acquired from one another by shifting. They are both used in different applications benefiting from there differences. Blelloch \cite{BlellochTR90} also describes the scan as a good example of an algorithm that seems inherently sequential, but for which there is an efficient parallel implementation. \Cref{fig:scan_serial} show a visual representation of the common serial implementation of the scan.  
+Both types of scan can be acquired from one another by register shifting. They are both used in different applications benefiting from there differences. Blelloch \cite{BlellochTR90} also describes the scan as a good example of an algorithm that seems inherently sequential, but for which there is an efficient parallel implementation. \Cref{fig:scan_serial} show a visual representation of the common serial implementation of the scan.  
 
 \begin{figure}[ht]
 	\centering
@@ -56,4 +56,4 @@ Both types of scan can be acquired from one another by shifting. They are both u
 	\label{fig:scan_serial}
 \end{figure}
 
-The algorithm like the serial reduction on \cref{fig:reduce_serial}, but cannot be paralleled the same way because of the more strict chain of dependencies. Like the serial reduction, scan has a work and step complexity of $\mathcal{O}(n)$. The next two subsections will describe two different parallel implementations of the scan algorithm.
+The algorithm looks like the serial reduction on \cref{fig:reduce_serial}, but cannot be paralleled the same way because of the more strict chain of dependencies. Like the serial reduction, scan has a work and step complexity of $\mathcal{O}(n)$. The next two subsections will describe two different parallel implementations of the scan algorithm.

@@ -1,14 +1,14 @@
-One of the most used patterns in parallel computing is the reduction. The reduction combines all elements in an array to a single element using an reduction operator. This can for example be used to calculate the sum or product of an array. In order for the reduction to happen the reduction operator must be both binary and associative. Binary means that the operator is two-to-one, combining two element to one. Associative means that the order of which operations are performed does not effect the result which can be mathematical expressed as \cref{def:reduce_associative}.
+A highly used pattern in parallel computing is reduction. Reduction combines all elements in an array to a single element using an reduction operator. This can for example be used to calculate the sum or product of an array. In order for a reduction to work the reduction operator must be both binary and associative. Binary means that the operator is two-to-one, combining two element. Associative means that the order of which operations are performed does not effect the result, which can be mathematical expressed as \cref{def:reduce_associative}.
 
 \begin{definition} 
 \label{def:reduce_associative}
-\textit{For an operator $\oplus$ to be associative the following statement must be true}
+\textit{For an operator $\oplus$ to be associative the following statement must be true:}
 \begin{center}
 	$(a \oplus b) \oplus c = a \oplus (b \oplus c).$
 \end{center}
 \end{definition}
 
-\noindent Addition and multiplication operators are associative while subtraction and division is not. The reduction can also be formally defined, which is accordingly to Blelloch in \cite{BlellochTR90}, as seen in \cref{def:reduce}.
+\noindent Addition and multiplication operators are associative while subtraction and division is not. The reduction can also be formally defined, which was done by Blelloch in \cite{BlellochTR90}, as seen in \cref{def:reduce}.
 
 \begin{definition} 
 	\label{def:reduce}
@@ -52,32 +52,8 @@ Each operator operation in the serial implementation is data depend, which creat
 	\label{fig:reduce_parallel}
 \end{figure}
 
-The binary tree parallel reduction has a work complexity of $\mathcal{O}(n)$ and a step complexity of $\mathcal{O}(log ~ n)$, an is thereby step efficient. 
-The amount of data dependency is reduced compared to \cref{eq:al_reduce_serial}, making it more suitable for parallel execution. A simple CUDA implementation of a reduction algorithm is seen in listing \ref{lst:reduce_kernel}:
-
-\begin{lstlisting}[language=C,caption={TBD},label=lst:reduce_kernel]
-__global__ void reduce_kernel(float * d_out, float * d_in, int size)
-{
-	int myId  = threadIdx.x; 
-
-	// Reduction through O(log size) iterations
-	for (unsigned int s = size / 2; s > 0; s >>= 1)
-	{
-		if (myId < s) // prevents segmentation fault
-		{
-			d_in[myId] += d_in[myId + s];
-		}
-		__syncthreads(); // synchonize each thread        
-	}
-
-	if (myId == 0) // thread 0 writes the result to the output
-	{
-		d_out[myId] = d_in[myId];
-	}
-}
-\end{lstlisting}
-
-The reduction implementation uses the individual thread ids to index in the input array. A for-loop is used to iterate through  $log(n)$ steps, where n is the number of elements in the input array. It should be noted that this example is not optimized, but is merely to show how a CUDA implementation looks. The shown implementation uses global memory and will only work on arrays smaller than the maximum threads per block. A way of making the reduce work on an arbitrary array size, is by combining multiple reductions as presented on \cref{fig:al_reduce_combine}:
+The binary tree parallel reduction has a work complexity of $\mathcal{O}(n)$ and a step complexity of $\mathcal{O}(log ~ n)$, thereby step efficient. 
+The amount of data dependency is reduced, making it more suitable for parallel execution. A simple CUDA implementation of a reduction algorithm is seen in appendix \cref{ch:app_code_examples} in listing \ref{lst:reduce_kernel}. A fully working reduction can be found in \cite{exercises}. It should be noted that this example is not optimized, but is merely to show how a CUDA implementation looks. The shown implementation uses global memory and will only work on arrays smaller than the maximum threads per block. A way of making the reduce work on an arbitrary array size, is by combining multiple reductions as presented on \cref{fig:al_reduce_combine}:
 
 \begin{figure}[ht]
 	\centering

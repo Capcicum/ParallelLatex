@@ -1,4 +1,4 @@
-The ability to sort an array is important in programming, in both a serial and parallel context. Sorting is to arrange elements of and set in a specific way, e.g. numerical or lexicographical sorting. This section will only focus on examples and sorting of numerical minimum to maximum sorting. A definition of numerical minimum to maximum sort is seen in \cref{def:al_sort}.   
+The ability to sort an array is important in programming, in both a serial and parallel context. Sorting is to arrange elements of a set in a specific way, e.g. numerical or lexicographical sorting. This section will only focus on examples and sorting of numerical minimum to maximum sorting. A definition of numerical minimum to maximum sort is seen in \cref{def:al_sort}.   
 
 \begin{definition}
 	\label{def:al_sort}
@@ -22,7 +22,7 @@ The ability to sort an array is important in programming, in both a serial and p
 	\end{center}
 \end{example}
 
-There are many different implementations and strategies for sorting a both serial and parallel. Many factors a present when choosing a sorting algorithm for an application. For the serial implementations examples of sorting algorithm is Quicksort, Merge sort, Heapsort and Bubble sort. Sorting algorithms complexity is often described using time complexity, as the work and step comlexity for serial algorithms are equal. The time complexity can be divided into 3 catagories namely worst, avarage and best. these categories are used as sorting algorithm, may complete in different times, determined by the order of the input element e.g. they are already ordered. The complexities for different serial algorithms are seen in \cref{tab:serial_sort} \cite{wiki:sort}. 
+There are many different implementations and strategies for sorting, both serial and parallel. Many factors a present when choosing a sorting algorithm for an application. For the serial implementations examples of sorting algorithm is Quicksort, Merge sort, Heapsort and Bubble sort. Sorting algorithms complexity is often described using time complexity, as the work and step comlexity for serial algorithms are equal. The time complexity can be divided into 3 categories namely worst, average and best. these categories are used as sorting algorithm, may complete in different times, determined by the order of the input element e.g. they are already ordered. The complexities for different serial algorithms are seen in \cref{tab:serial_sort} \cite{wiki:sort}. 
 
 \begin{table}[ht]
 	\centering
@@ -41,6 +41,6 @@ There are many different implementations and strategies for sorting a both seria
 \end{table}
 
 
-As seen the work and step complexity of the serial sorting algorithms ranges from $\mathcal{O}(n^2)$ being the worst to $\mathcal{O}(n~log~n)$ being the best. The purpose of a parallel sorting algorithm is to more efficient than the serial implementation, and with $n$ processors the optimal improvement could be a parallel algorithm with time complexity $\mathcal{O}(log~n)$.
+As seen the work and step complexity of the serial sorting algorithms ranges from $\mathcal{O}(n^2)$ being the worst to $\mathcal{O}(n~log~n)$ being the best. The purpose of a parallel sorting algorithm is to be more efficient than the serial implementation.
 
 Sorting algorithm can be divided into two groups, namely comparison and non-comparison sorts. The comparison sort algorithms compares all elements e.g. using a compare and swap operation. Two elements are compared using e.g. less than or equal to, which determines which elements to come first in a sorted array. The non-comparison sorts, use other means for sorting an array. Different parallel sorting algorithm both comparison and non-comparison will be presented in the following sections. 
