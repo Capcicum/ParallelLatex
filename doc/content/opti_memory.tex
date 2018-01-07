@@ -16,7 +16,7 @@ However, it is very difficult to avoid all random memory access, which is where 
 
 Using the kernel to sum 2048 elements, a runtime could be measured. To get a more precise measurement, the kernel was run a thousand times on the same elements, thus calculation an average runtime of 0.971 ms. To optimize the before mentioned reduce kernel, shared memory was used internally in the kernel, the code can be seen in listing \ref{lst:reduce_shared}.
 
-\begin{lstlisting}[language=C,caption={TBD},label=lst:reduce_shared]
+\begin{lstlisting}[language=C,caption={Optimized reduce kernel, using shared memory},label=lst:reduce_shared]
 __global__ void reduce_kernel_shared(unsigned *in, unsigned *out) 
 {
 	auto id = blockDim.y * blockDim.x * blockIdx.x + threadIdx.y * blockDim.x + threadIdx.x;
