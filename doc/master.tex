@@ -77,17 +77,24 @@
 
 \newcommand{\lstfont}[1]{\color{#1}\scriptsize\ttfamily}
 
+\definecolor{commentgreen}{rgb}{0.25,0.5,0.35} % comments
+
 \lstset{
-	language=[ANSI]C++,
+	language=C++,
 	captionpos=b,
 	showstringspaces=false,
-	backgroundcolor=\color{black!90},
-	basicstyle=\lstfont{white},
-	identifierstyle=\lstfont{white},
-	keywordstyle=\lstfont{magenta!40},
-	numberstyle=\lstfont{white},
-	stringstyle=\lstfont{cyan},
-	commentstyle=\lstfont{yellow!30},
+	%backgroundcolor=\color{black!90},
+	%basicstyle=\lstfont{white},
+	%identifierstyle=\lstfont{white},
+	%keywordstyle=\lstfont{magenta!40},
+	keywordstyle=\color{blue},
+	%numberstyle=\lstfont{white},
+	%stringstyle=\lstfont{cyan},
+	stringstyle=\color{red},
+	%commentstyle=\lstfont{yellow!30},
+	commentstyle=\color{commentgreen},
+	morecomment=[l][\color{magenta}]{\#},
+	frame=single,
 	emph={
 		cudaMalloc, cudaFree, cudaMemcpy,
 		__global__, __shared__, __device__, __host__, __constant__,
@@ -95,7 +102,7 @@
 		cudaMemcpyDeviceToHost, cudaMemcpyHostToDevice, cudaMemcpyDeviceToDevice,
 		cudaStreamCreate, cudaStreamDestroy, cudaMemcpyAsync,
 	},
-	emphstyle={\lstfont{green!60!white}},
+	emphstyle={\lstfont{magenta}},
 	breaklines=true
 }
 
