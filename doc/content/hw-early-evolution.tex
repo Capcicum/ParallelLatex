@@ -9,7 +9,7 @@ This limited the possibility for graphic programmers greatly, and led to a major
 
 The first change to the architecture, was to remove the strictly fixed-function pipelines.
 This was carried out by exchanging the highly specialized hardware functions with pools of flexible processor cores.
-These pools are separated between processors responsible for pixel specific calculations (Pixel shading) and processors responsible for vertex specific calculations (Vertex shading) \cite{Johansson2010}.
+These pools are separated between processors responsible for pixel specific calculations (pixel shading) and processors responsible for vertex specific calculations (vertex shading) \cite{Johansson2010}.
 The difference between these two shaders is that Pixel shaders operates per-pixel basis, and Vertex shaders perform operations to objects in a 3D environment.
 Changing to flexible programmable processor cores, allowed developers to apply custom algorithms to the processing pipeline executed by the GPU.
 
@@ -22,7 +22,7 @@ As this suboptimal uneven work distribution was unacceptable for a general purpo
 
 This led to the birth of the first GPGPU architecture. 
 Here a narrowing from the two specialized processor types were unified to a single generic general purpose processor type, capable of handling the tasks of both of its predecessors.
-This new processor is more complex, yet more flexible and allows for a efficient workload distribution as tasks are distributable throughout all processors.
+This new processor is more complex, yet more flexible and allows for an efficient workload distribution as tasks are distributable throughout all processors.
 
 The introduction of the new GPU hardware architecture containing a unified processor type started many research groups, with the focus of using the inherent computing power of GPUs for high-performance general purpose computing.
 However, development of general purpose applications relied on programming frameworks used for graphical programming.

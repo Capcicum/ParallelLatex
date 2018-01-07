@@ -54,7 +54,7 @@ This rotation is continued until all instructions are executed.
 
 Again, some architectures only contains one Instruction Dispatch Unit per Warp Scheduler, limiting the number of instructions that a warp can perform to one for all threads.
 
-Prior to execution, instructions are located in a instruction queue, accessible to the Warp scheduler.
+Prior to execution, instructions are located in an instruction queue, accessible to the Warp scheduler.
 The warp scheduler is responsible of selecting the instructions that should be executed during the next clock cycle.
 This selection is done based on two parameters, the status and priority of the instruction.
 
@@ -67,7 +67,7 @@ The instruction with the highest priority, and status flag set to "ready" is sel
 \\\\
 \textbf{Warp Divergence -} The SIMT execution model, however comes with a drawback.
 In order to execute code where threads within the same warp is wished to perform different operations their SP cores have to diverge.
-By diverge, it is meant that some cores are running instructions which they have in common, while others not having the same instructions remain idle and so on.
+By diverge, it is meant that some cores are running instructions which they have in common, while others not having the same instructions remain idle.
 Such a code example could be a \textit{if-else} sentence as illustrated on
 \autoref{lst:threaddiv} \& \cref{fig:hw-warp-div}.
 

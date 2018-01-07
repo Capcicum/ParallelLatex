@@ -23,7 +23,7 @@ In this access binding, no other thread can access the register for read or writ
 For most architecture types, the Register Files speed matches the clock cycle of the SPs, allowing for zero clock cycles per instruction to access a given register.
 For that reason, the Register File is the fastest memory accessible in the GPU memory model.
 \\\\
-\textbf{Local Memory -} The Local Memory it is actually a portion of the Global Memory.
+\textbf{Local Memory -} The Local Memory is actually a portion of the Global Memory.
 It is therefore not as such a physical memory space but only a partition.
 Differing from the Global Memory, its accessibility scope is per-thread just like the Register File.
 It is generally used for \textit{register spilling}, meaning that if the amount of registers available in the Register File is insufficient for the amount of variables in the application, they are instead saved in the Local Memory.
@@ -41,14 +41,14 @@ The lifetime of the Local Memory matches the Register File, meaning that once th
 	\label{fig:hw-memory-schematic}
 \end{figure}
 \noindent \textbf{Shared Memory -} Different from the Local and Global Memory, the Shared Memory is located on the SM chip.
-Its access scope, which is per Thread Block as illustrated on \cref{fig:hw-memory-model}, allows for it to be used data exchange  between the threads located within the given block.
+Its access scope, which is per Thread Block as illustrated on \cref{fig:hw-memory-model}, allows for it to be used for data exchange  between the threads located within the given block.
 The Shared Memory is partitioned into a series of banks, which are handled by a bus, allowing for very fast access like the Register File, which allows for a high bandwidth and low access latency \cite{Li2016}.
 The fastest possible configuration requires each bank to be served by only a single thread, allowing for parallel accessing of every bank.
 If multiple threads are to share the same bank, accessing is serialized, which is also defined as \textit{bank conflicting} \cite{Maitre2013}.
 As presented in \cref{ch-opti-intro}, various optimizations should be kept in mind when working on the GPU, this includes using the Shared Memory over the Global or Local Memory when possible.
 \\\\
 \textbf{Global Memory -} The Global Memory is also known as \textit{Device Memory}, \textit{GPU off-chip Memory} or \textit{GPU Main Memory}.
-Different from the previously presented memory types, the data stored within the Data The data that is stored in the Global Memory is visible to all threads within the GPU application, as well as the CPU \textit{Host}. 
+Different from the previously presented memory types, the data stored that is stored in the Global Memory is visible to all threads within the GPU application, as well as the CPU \textit{Host}. 
 In addition, the lifetime  of the data lasts for the duration of the host allocation.
 The Global Memory is used most frequently of all the memory types.
 Because of this, its throughput often dictates the final achievable performance of the GPU.
